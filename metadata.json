@@ -1,0 +1,6 @@
+{
+  "name": "Gully Cricket Scorer",
+  "description": "Production-ready Gully Cricket Scoring Web Application with live scoring, ball-by-ball commentary, match history, player profiles, super overs, tournament mode, and PDF exports. Designed & Developed by Ashif Web Studio.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,96 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        (request.auth.token.email == 'mohdashif.dev@gmail.com' && request.auth.token.email_verified == true) ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Users Collection
+    match /users/{userId} {
+      allow get: if isSignedIn() && (isOwner(userId) || isAdmin());
+      allow list: if isAdmin();
+      allow create: if isSignedIn() && isOwner(userId) &&
+        request.resource.data.uid == userId &&
+        request.resource.data.email is string &&
+        request.resource.data.email.size() <= 150 &&
+        request.resource.data.name is string &&
+        request.resource.data.name.size() <= 100;
+      allow update: if (isOwner(userId) || isAdmin()) &&
+        request.resource.data.uid == resource.data.uid;
+      allow delete: if isAdmin();
+    }
+
+    // Matches Collection - Publicly readable so shared match links and live scores can be viewed!
+    match /matches/{matchId} {
+      allow get, list: if true;
+      allow create: if isSignedIn() && isValidId(matchId) &&
+        request.resource.data.userId == request.auth.uid;
+      allow update: if isSignedIn() && isValidId(matchId) && (
+        resource.data.userId == request.auth.uid || isAdmin()
+      );
+      allow delete: if isSignedIn() && isValidId(matchId) && (
+        resource.data.userId == request.auth.uid || isAdmin()
+      );
+    }
+
+    // Players Collection
+    match /players/{playerId} {
+      allow get, list: if true;
+      allow create, update: if isSignedIn() && isValidId(playerId);
+      allow delete: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+    }
+
+    // Teams Collection
+    match /teams/{teamId} {
+      allow get, list: if true;
+      allow create, update: if isSignedIn() && isValidId(teamId);
+      allow delete: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+    }
+
+    // Admin Logs
+    match /admin_logs/{logId} {
+      allow read: if isAdmin();
+      allow create: if isSignedIn();
+      allow update, delete: if isAdmin();
+    }
+
+    // Login Logs
+    match /login_logs/{logId} {
+      allow read: if isAdmin();
+      allow create: if isSignedIn();
+      allow update, delete: if isAdmin();
+    }
+
+    // Admins list
+    match /admins/{adminId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // Health check test connection
+    match /test/{docId} {
+      allow get: if true;
+    }
+  }
+}

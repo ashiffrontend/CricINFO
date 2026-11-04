@@ -1,0 +1,134 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile with authentication and activity data",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 100 },
+        "email": { "type": "string", "maxLength": 150 },
+        "photo": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string", "maxLength": 50 },
+        "lastLogin": { "type": "string", "maxLength": 50 },
+        "role": { "type": "string", "enum": ["user", "admin"] }
+      },
+      "required": ["uid", "name", "email"]
+    },
+    "Match": {
+      "title": "Match",
+      "description": "Cricket match details, teams, scores, balls and outcome",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "creatorEmail": { "type": "string", "maxLength": 150 },
+        "matchType": { "type": "string", "maxLength": 50 },
+        "format": { "type": "string", "maxLength": 50 },
+        "totalOvers": { "type": "number" },
+        "teamA": { "type": "object" },
+        "teamB": { "type": "object" },
+        "toss": { "type": "object" },
+        "status": { "type": "string", "enum": ["live", "completed", "tied", "draw", "no_result", "abandoned"] },
+        "currentInnings": { "type": "number" },
+        "innings": { "type": "array" },
+        "result": { "type": "object" },
+        "playerOfTheMatch": { "type": "string", "maxLength": 100 },
+        "venue": { "type": "string", "maxLength": 100 },
+        "createdAt": { "type": "string", "maxLength": 50 },
+        "updatedAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["id", "userId", "matchType", "format", "status"]
+    },
+    "Player": {
+      "title": "Player",
+      "description": "Player career stats and personal records",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 100 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "matches": { "type": "number" },
+        "runs": { "type": "number" },
+        "highest": { "type": "number" },
+        "balls": { "type": "number" },
+        "fours": { "type": "number" },
+        "sixes": { "type": "number" },
+        "wickets": { "type": "number" },
+        "oversBowled": { "type": "number" },
+        "runsConceded": { "type": "number" }
+      },
+      "required": ["id", "name"]
+    },
+    "Team": {
+      "title": "Team",
+      "description": "Team profile and performance record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 100 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "matches": { "type": "number" },
+        "wins": { "type": "number" },
+        "losses": { "type": "number" },
+        "ties": { "type": "number" }
+      },
+      "required": ["id", "name"]
+    },
+    "AdminLog": {
+      "title": "AdminLog",
+      "description": "Administrative audit trail entry",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "adminUid": { "type": "string", "maxLength": 128 },
+        "action": { "type": "string", "maxLength": 100 },
+        "targetId": { "type": "string", "maxLength": 128 },
+        "timestamp": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["id", "adminUid", "action"]
+    },
+    "LoginLog": {
+      "title": "LoginLog",
+      "description": "User login history log",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "uid": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 150 },
+        "timestamp": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["id", "uid"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Registered user profile records"
+    },
+    "/matches/{matchId}": {
+      "schema": { "$ref": "#/entities/Match" },
+      "description": "Cricket matches created and saved by users"
+    },
+    "/players/{playerId}": {
+      "schema": { "$ref": "#/entities/Player" },
+      "description": "Global or user-tracked player statistics"
+    },
+    "/teams/{teamId}": {
+      "schema": { "$ref": "#/entities/Team" },
+      "description": "Global or user-tracked team profiles"
+    },
+    "/admin_logs/{logId}": {
+      "schema": { "$ref": "#/entities/AdminLog" },
+      "description": "System admin activity logs"
+    },
+    "/login_logs/{logId}": {
+      "schema": { "$ref": "#/entities/LoginLog" },
+      "description": "User login audit records"
+    },
+    "/test/{docId}": {
+      "schema": { "$ref": "#/entities/AdminLog" },
+      "description": "Health check connection test document"
+    }
+  }
+}
