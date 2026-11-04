@@ -7,17 +7,19 @@
  */
 
 import {
-  auth,
-  loginWithGoogle,
-  logoutUser,
   saveMatchToFirestore,
   fetchUserMatches,
   fetchAdminStats,
   deleteMatchFromFirestore,
   deleteUserFromFirestore,
-  testFirebaseConnection,
   ADMIN_EMAIL
 } from './firebase.js';
+
+import {
+  loginWithGoogle,
+  logoutUser,
+  initAuthListener
+} from './auth.js';
 
 import { storage } from './storage.js';
 import { CricketEngine } from './cricket-engine.js';
@@ -46,16 +48,13 @@ window.appState = {
 document.addEventListener('DOMContentLoaded', () => {
   console.log('[App] Initializing Gully Cricket Scorer...');
 
-  // Connectivity
-  testFirebaseConnection();
-
   // Load local match
   const savedLive = storage.getLiveMatch();
   if (savedLive) {
     window.appState.activeMatch = savedLive;
   }
 
-  // Auth observer
+  // Auth observer via auth.js
   initAuthObserver();
 
   // Router
@@ -110,7 +109,7 @@ function runSplashScreen() {
 }
 
 // ============================================================================
-// 2. AUTHENTICATION (Google Only)
+// 2. AUTHENTICATION (Google Only via auth.js)
 // ============================================================================
 
 function initAuthObserver() {
@@ -123,7 +122,8 @@ function initAuthObserver() {
   const menuEmail = document.getElementById('menu-user-email');
   const btnMainLogin = document.getElementById('btn-login-google-main');
 
-  auth.onAuthStateChanged(async (user) => {
+  // Use persistent onAuthStateChanged listener from auth.js
+  initAuthListener((user) => {
     if (user) {
       window.appState.currentUser = user;
       storage.setCachedUser({
@@ -138,11 +138,6 @@ function initAuthObserver() {
       if (userAvatar) userAvatar.src = user.photoURL || '/assets/aistudio/Ashif_Web_Studio_Frontend_Developer_logo_229c6c9e.png';
       if (menuName) menuName.textContent = user.displayName || 'Player';
       if (menuEmail) menuEmail.textContent = user.email || '';
-
-      // If user is currently on #login, redirect to #home
-      if (window.location.hash === '#login') {
-        window.location.hash = '#home';
-      }
 
       // Fetch user's own matches
       loadCurrentUserMatches();
@@ -166,7 +161,7 @@ function initAuthObserver() {
       showToast('Signed in successfully!', 'success');
       window.location.hash = '#home';
     } catch (e) {
-      showToast('Sign-in cancelled or failed: ' + e.message, 'danger');
+      showToast('Sign-in cancelled or failed: ' + (e.message || e), 'danger');
     }
   };
 
@@ -174,9 +169,13 @@ function initAuthObserver() {
   if (btnMainLogin) btnMainLogin.addEventListener('click', triggerGoogleLogin);
 
   const triggerLogout = async () => {
-    await logoutUser();
-    showToast('Signed out.');
-    window.location.hash = '#login';
+    try {
+      await logoutUser();
+      showToast('Signed out.');
+      window.location.hash = '#login';
+    } catch (e) {
+      showToast('Logout error: ' + (e.message || e), 'danger');
+    }
   };
 
   if (btnHeaderLogout) btnHeaderLogout.addEventListener('click', triggerLogout);

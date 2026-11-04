@@ -1,157 +1,84 @@
 /**
- * Firebase Service Module
+ * Firebase Initialization & Services Module
  * Gully Cricket Scorer
  * Designed & Developed by Ashif Web Studio
  * Developer: Mohammad Ashif (mohdashif.dev@gmail.com)
+ * Website: https://ashif-web-studio.vercel.app
  */
 
-import { initializeApp } from 'firebase/app';
-import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  signOut,
-  onAuthStateChanged
-} from 'firebase/auth';
+import { initializeApp, getApps, getApp } from 'firebase/app';
+import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import {
   initializeFirestore,
+  getFirestore,
   doc,
-  getDoc,
   setDoc,
-  getDocFromServer,
-  collection,
+  getDoc,
   getDocs,
   query,
   where,
   orderBy,
   limit,
+  collection,
   deleteDoc,
   updateDoc
 } from 'firebase/firestore';
+import { getAnalytics, isSupported } from 'firebase/analytics';
 
-import firebaseConfig from '../firebase-applet-config.json';
+// 1. Firebase configuration provided by user
+export const firebaseConfig = {
+  apiKey: "AIzaSyB-FE89YoOxxA71iYyPsusGsayQPPXieVM",
+  authDomain: "ashif-web-studio.firebaseapp.com",
+  projectId: "ashif-web-studio",
+  storageBucket: "ashif-web-studio.firebasestorage.app",
+  messagingSenderId: "50473003726",
+  appId: "1:50473003726:web:f9fcd2a57f2a7002547e9f",
+  measurementId: "G-D29W046SCH"
+};
 
-// Initialize Firebase App & Services
-export const app = initializeApp(firebaseConfig);
+// 2. Ensure initializeApp is called exactly ONCE (prevent duplicate initialization)
+export const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+
+// 3. Initialize Firebase Authentication instance
 export const auth = getAuth(app);
+
+// 4. Initialize Cloud Firestore database instance (configured with resilient transport)
 export const db = initializeFirestore(app, {
   experimentalForceLongPolling: true
-}, firebaseConfig.firestoreDatabaseId);
+});
 
+// 5. Initialize Google Auth Provider
+export const provider = new GoogleAuthProvider();
+provider.setCustomParameters({
+  prompt: 'select_account'
+});
+
+// 6. Initialize Firebase Analytics conditionally if supported in runtime environment
+export let analytics = null;
+if (typeof window !== 'undefined') {
+  isSupported().then((supported) => {
+    if (supported) {
+      analytics = getAnalytics(app);
+      console.log('[Firebase] Analytics initialized successfully.');
+    }
+  }).catch(() => {
+    // Analytics optional in restricted or test environments
+  });
+}
+
+// Master Admin Email
 export const ADMIN_EMAIL = 'mohdashif.dev@gmail.com';
 
 /**
- * Standardized Firestore error handler conforming to FirestoreErrorInfo spec
+ * Standardized Firestore error logger
  */
-export function handleFirestoreError(error, operationType, path) {
-  const errInfo = {
-    error: error instanceof Error ? error.message : String(error),
-    authInfo: {
-      userId: auth.currentUser?.uid || null,
-      email: auth.currentUser?.email || null,
-      emailVerified: auth.currentUser?.emailVerified || null,
-      isAnonymous: auth.currentUser?.isAnonymous || null,
-      providerInfo: auth.currentUser?.providerData?.map(p => ({
-        providerId: p.providerId,
-        email: p.email
-      })) || []
-    },
-    operationType,
-    path
-  };
-  console.error('[Firestore Error]:', JSON.stringify(errInfo));
-  return errInfo;
+export function logFirestoreError(error, operation, path) {
+  console.error(`[Firestore ${operation.toUpperCase()} Error at ${path}]:`, error.code || '', error.message || error);
 }
 
 /**
- * Health check connection testing
- */
-export async function testFirebaseConnection() {
-  try {
-    const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('the client is offline (timeout)')), 4000)
-    );
-    await Promise.race([
-      getDocFromServer(doc(db, 'test', 'connection')),
-      timeoutPromise
-    ]);
-    console.log('[Firebase] Connected to Firestore successfully.');
-  } catch (error) {
-    if (error instanceof Error && error.message.includes('the client is offline')) {
-      console.warn('[Firebase] Firestore client is running in offline mode.');
-    } else {
-      console.log('[Firebase] Handshake complete.');
-    }
-  }
-}
-
-/**
- * Sign in using Google Auth Popup
- * Stores in Firestore 'users' collection: uid, name, email, photo, loginTime
- */
-export async function loginWithGoogle() {
-  const provider = new GoogleAuthProvider();
-  try {
-    const result = await signInWithPopup(auth, provider);
-    const user = result.user;
-
-    const userDocRef = doc(db, 'users', user.uid);
-    const nowIso = new Date().toISOString();
-
-    let existingData = {};
-    try {
-      const snap = await getDoc(userDocRef);
-      if (snap.exists()) {
-        existingData = snap.data();
-      }
-    } catch (e) {
-      // offline fallback
-    }
-
-    const userData = {
-      uid: user.uid,
-      name: user.displayName || 'Cricket Player',
-      email: user.email || '',
-      photo: user.photoURL || '',
-      loginTime: nowIso,
-      createdAt: existingData.createdAt || nowIso,
-      role: user.email === ADMIN_EMAIL ? 'admin' : (existingData.role || 'user')
-    };
-
-    try {
-      await setDoc(userDocRef, userData, { merge: true });
-
-      // Track in login_logs
-      const logRef = doc(collection(db, 'login_logs'));
-      await setDoc(logRef, {
-        id: logRef.id,
-        uid: user.uid,
-        email: user.email || '',
-        name: user.displayName || '',
-        photo: user.photoURL || '',
-        timestamp: nowIso
-      });
-    } catch (e) {
-      handleFirestoreError(e, 'write', 'users/' + user.uid);
-    }
-
-    return userData;
-  } catch (err) {
-    console.error('Google Sign-in failed:', err);
-    throw err;
-  }
-}
-
-/**
- * Sign out current user
- */
-export async function logoutUser() {
-  return signOut(auth);
-}
-
-/**
- * Save match to Firestore
- * Automatically marks previous live match as completed when starting a new live match!
+ * Save or update match in Firestore
+ * Automatically marks previous live match as completed when starting a new live match
  */
 export async function saveMatchToFirestore(matchData) {
   if (!matchData || !matchData.id) return null;
@@ -167,7 +94,7 @@ export async function saveMatchToFirestore(matchData) {
         where('status', '==', 'live')
       );
       const snap = await getDocs(liveQ);
-      snap.forEach(async d => {
+      snap.forEach(async (d) => {
         if (d.id !== matchData.id) {
           await updateDoc(doc(db, 'matches', d.id), {
             status: 'completed',
@@ -195,7 +122,7 @@ export async function saveMatchToFirestore(matchData) {
     console.log('[Firestore] Match saved:', matchData.id);
     return payload;
   } catch (err) {
-    handleFirestoreError(err, 'write', 'matches/' + matchData.id);
+    logFirestoreError(err, 'write', 'matches/' + matchData.id);
     return null;
   }
 }
@@ -213,14 +140,14 @@ export async function fetchUserMatches(uid) {
     );
     const snapshot = await getDocs(q);
     const list = [];
-    snapshot.forEach(d => {
+    snapshot.forEach((d) => {
       list.push({ id: d.id, ...d.data() });
     });
     // Sort descending by updatedAt / createdAt
     list.sort((a, b) => new Date(b.updatedAt || b.createdAt) - new Date(a.updatedAt || a.createdAt));
     return list;
   } catch (err) {
-    handleFirestoreError(err, 'list', 'matches');
+    logFirestoreError(err, 'list', 'matches');
     return [];
   }
 }
@@ -237,13 +164,13 @@ export async function fetchAdminStats() {
     ]);
 
     const users = [];
-    usersSnap.forEach(d => users.push(d.data()));
+    usersSnap.forEach((d) => users.push(d.data()));
 
     const matches = [];
     let liveCount = 0;
     let completedCount = 0;
 
-    matchesSnap.forEach(d => {
+    matchesSnap.forEach((d) => {
       const data = d.data();
       matches.push({ id: d.id, ...data });
       if (data.status === 'live') liveCount++;
@@ -251,11 +178,11 @@ export async function fetchAdminStats() {
     });
 
     const logins = [];
-    loginsSnap.forEach(d => logins.push(d.data()));
+    loginsSnap.forEach((d) => logins.push(d.data()));
     logins.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
     const todayStr = new Date().toISOString().split('T')[0];
-    const todayLogins = logins.filter(l => l.timestamp && l.timestamp.startsWith(todayStr)).length;
+    const todayLogins = logins.filter((l) => l.timestamp && l.timestamp.startsWith(todayStr)).length;
 
     return {
       totalUsers: users.length,
@@ -274,27 +201,27 @@ export async function fetchAdminStats() {
 }
 
 /**
- * Delete a match
+ * Delete a match from Firestore
  */
 export async function deleteMatchFromFirestore(matchId) {
   try {
     await deleteDoc(doc(db, 'matches', matchId));
     return true;
   } catch (err) {
-    handleFirestoreError(err, 'delete', 'matches/' + matchId);
+    logFirestoreError(err, 'delete', 'matches/' + matchId);
     return false;
   }
 }
 
 /**
- * Delete a user (Admin only)
+ * Delete a user from Firestore (Admin only)
  */
 export async function deleteUserFromFirestore(userId) {
   try {
     await deleteDoc(doc(db, 'users', userId));
     return true;
   } catch (err) {
-    handleFirestoreError(err, 'delete', 'users/' + userId);
+    logFirestoreError(err, 'delete', 'users/' + userId);
     return false;
   }
 }
