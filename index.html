@@ -1,1630 +1,851 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   
-  <!-- SEO & Social Sharing Metadata -->
   <title>Gully Cricket Scorer | Ashif Web Studio</title>
-  <meta name="description" content="Professional Gully Cricket Scoring Web Application with live scoring, ball-by-ball commentary, graphs, super over, tournament mode, and PDF scorecard export. Designed & Developed by Ashif Web Studio." />
-  <meta name="keywords" content="cricket scorer, gully cricket, box cricket, live scoring, cricket scorecard, ashif web studio, mohammad ashif, cricket app" />
+  <meta name="description" content="Production-ready Cricket Scoring App by Ashif Web Studio. Score matches ball-by-ball, manage squads, toss simulation, live scorecard, and professional PDF export." />
   <meta name="author" content="Mohammad Ashif (Ashif Web Studio)" />
-  
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Gully Cricket Scorer - Designed & Developed by Ashif Web Studio" />
-  <meta property="og:description" content="Production-ready Cricket Scoring App with real-time stats, graphs, super over, and instant PDF scorecard downloads." />
-  <meta property="og:image" content="/assets/aistudio/Ashif_Web_Studio_Frontend_Developer_logo_229c6c9e.png" />
-  
-  <!-- Twitter Cards -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Gully Cricket Scorer - Ashif Web Studio" />
-  <meta name="twitter:description" content="Production-ready Cricket Scoring App with real-time stats, graphs, super over, and instant PDF scorecard downloads." />
-  <meta name="twitter:image" content="/assets/aistudio/Ashif_Web_Studio_Frontend_Developer_logo_229c6c9e.png" />
 
-  <!-- PWA & Mobile Web Meta -->
   <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#0d6efd" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="GullyScorer" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="icon" type="image/png" href="/favicon.png" />
 
-  <!-- Google Fonts: Plus Jakarta Sans & Outfit & JetBrains Mono -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700&family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <!-- Bootstrap 5 CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 
-  <!-- Custom Stylesheet -->
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="/src/styles.css" />
 </head>
-<body class="theme-light">
-  <!-- OPENING SPLASH SCREEN (Shows for 3 seconds) -->
-  <div id="splash-screen" class="splash-container">
-    <div class="splash-card text-center p-4">
-      <div class="splash-logo-wrap mb-4">
-        <img src="/assets/aistudio/Ashif_Web_Studio_Frontend_Developer_logo_229c6c9e.png" alt="Ashif Web Studio Logo" class="splash-logo img-fluid" />
+<body class="bg-white">
+
+  <!-- 1. SPLASH SCREEN (Exactly 3 Seconds) -->
+  <div id="splash-screen" class="splash-screen">
+    <div class="splash-content text-center p-4">
+      <div class="splash-logo-box mb-4">
+        <img src="/assets/aistudio/Ashif_Web_Studio_Frontend_Developer_logo_229c6c9e.png" alt="Ashif Web Studio" class="splash-logo-img" />
       </div>
-      <div class="splash-badge mb-2">CRICKET SCORING PLATFORM</div>
-      <h1 class="splash-title mb-2">Gully Cricket Scorer</h1>
-      <p class="splash-subtitle mb-4">Designed & Developed by <strong class="text-primary">Ashif Web Studio</strong></p>
-      
-      <div class="developer-box p-3 rounded-4 mb-4">
-        <div class="d-flex align-items-center justify-content-center gap-2 mb-1">
-          <i class="bi bi-person-badge-fill text-primary"></i>
-          <span class="fw-bold">Developer: Mohammad Ashif</span>
+      <h1 class="splash-brand-title mb-1">Gully Cricket Scorer</h1>
+      <p class="splash-by-text mb-4">
+        Designed &amp; Developed by<br />
+        <strong class="text-primary fs-5">Ashif Web Studio</strong>
+      </p>
+
+      <div class="splash-info-card p-3 rounded-4 mb-4 text-start">
+        <div class="mb-2 d-flex align-items-center gap-2">
+          <i class="bi bi-person-fill text-primary"></i>
+          <span>Developer: <strong>Mohammad Ashif</strong></span>
         </div>
-        <div class="d-flex align-items-center justify-content-center gap-2 mb-1 small text-muted">
-          <i class="bi bi-globe2 text-primary"></i>
+        <div class="mb-2 d-flex align-items-center gap-2">
+          <i class="bi bi-globe text-primary"></i>
           <a href="https://ashif-web-studio.vercel.app" target="_blank" rel="noopener noreferrer" class="text-decoration-none">https://ashif-web-studio.vercel.app</a>
         </div>
-        <div class="d-flex align-items-center justify-content-center gap-2 small text-muted">
-          <i class="bi bi-envelope-at text-primary"></i>
-          <span>mohdashif.dev@gmail.com</span>
+        <div class="d-flex align-items-center gap-2">
+          <i class="bi bi-envelope-fill text-primary"></i>
+          <a href="mailto:mohdashif.dev@gmail.com" class="text-decoration-none text-muted">mohdashif.dev@gmail.com</a>
         </div>
       </div>
 
-      <div class="splash-loader d-flex align-items-center justify-content-center gap-2">
+      <div class="d-flex align-items-center justify-content-center gap-2 text-muted small">
         <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
-        <span class="text-muted small">Loading match arena in <span id="splash-counter">3</span>s...</span>
-        <button id="btn-skip-splash" class="btn btn-sm btn-outline-primary ms-2 rounded-pill px-3">Skip</button>
+        <span>Opening arena in <span id="splash-timer" class="fw-bold text-dark">3</span>s...</span>
+        <button id="btn-skip-splash" class="btn btn-sm btn-outline-primary rounded-pill px-3 ms-2">Skip</button>
       </div>
     </div>
   </div>
 
-  <!-- OFFLINE STATUS BANNER -->
-  <div id="offline-banner" class="offline-alert d-none">
-    <div class="container d-flex align-items-center justify-content-between py-2">
-      <div class="d-flex align-items-center gap-2 small">
-        <i class="bi bi-wifi-off fs-5"></i>
-        <span><strong>Offline Mode</strong> — Match data is safely saved locally and will auto-sync when back online.</span>
-      </div>
-      <span class="badge bg-light text-dark rounded-pill">Offline Ready</span>
+  <!-- OFFLINE STATUS BAR -->
+  <div id="offline-bar" class="offline-bar d-none">
+    <div class="container d-flex justify-content-between align-items-center py-1 small">
+      <span><i class="bi bi-wifi-off me-2"></i>Offline Mode — Changes will synchronize when connection restores.</span>
+      <span class="badge bg-white text-dark rounded-pill">Offline</span>
     </div>
   </div>
 
-  <!-- MAIN APP WRAPPER -->
-  <div id="app" class="app-layout">
-    <!-- NAVIGATION BAR -->
-    <header class="app-header sticky-top">
-      <nav class="navbar navbar-expand-lg bg-white border-bottom py-2 shadow-sm">
-        <div class="container">
-          <a class="navbar-brand d-flex align-items-center gap-2" href="#home">
-            <img src="/assets/aistudio/Ashif_Web_Studio_Frontend_Developer_logo_229c6c9e.png" alt="Ashif Web Studio Logo" height="38" class="brand-img rounded-circle" />
-            <div class="brand-text">
-              <span class="fw-extrabold text-primary fs-5 d-block line-height-1">Gully Cricket</span>
-              <small class="text-secondary fw-semibold brand-sub">By Ashif Web Studio</small>
-            </div>
-          </a>
+  <!-- MAIN APP CONTAINER -->
+  <div class="app-root d-flex flex-column min-vh-100">
 
-          <!-- Top Navigation Right Actions -->
-          <div class="d-flex align-items-center gap-2 order-lg-3">
-            <!-- PWA Install Button -->
-            <button id="btn-pwa-install" class="btn btn-sm btn-outline-primary rounded-pill px-3 d-none align-items-center gap-1 shadow-sm" title="Install Web App">
-              <i class="bi bi-download"></i>
-              <span class="d-none d-sm-inline">Install App</span>
-            </button>
-
-            <!-- Dark / Light Mode Toggle -->
-            <button id="btn-theme-toggle" class="btn btn-sm btn-light border rounded-circle theme-btn" title="Toggle Theme" aria-label="Toggle Dark Mode">
-              <i class="bi bi-moon-stars-fill theme-icon"></i>
-            </button>
-
-            <!-- Auth User Button -->
-            <div id="auth-container">
-              <button id="btn-login" class="btn btn-sm btn-primary rounded-pill px-3 shadow-sm d-flex align-items-center gap-2">
-                <i class="bi bi-google"></i>
-                <span class="d-none d-sm-inline">Sign In</span>
-              </button>
-              
-              <div id="user-profile-menu" class="dropdown d-none">
-                <button class="btn btn-sm p-1 rounded-circle border dropdown-toggle d-flex align-items-center gap-1" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img id="user-avatar" src="" alt="Avatar" class="rounded-circle avatar-img" width="32" height="32" />
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4 p-2">
-                  <li class="px-3 py-2 border-bottom">
-                    <div id="user-display-name" class="fw-bold text-truncate" style="max-width: 180px;">User</div>
-                    <div id="user-display-email" class="text-muted small text-truncate" style="max-width: 180px;">email</div>
-                  </li>
-                  <li><a class="dropdown-item py-2 rounded-2" href="#history"><i class="bi bi-clock-history me-2 text-primary"></i>My Matches</a></li>
-                  <li><a class="dropdown-item py-2 rounded-2" href="#tournaments"><i class="bi bi-trophy me-2 text-primary"></i>Tournaments</a></li>
-                  <li><a class="dropdown-item py-2 rounded-2" href="#admin-login"><i class="bi bi-shield-lock me-2 text-primary"></i>Admin Portal</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><button id="btn-logout" class="dropdown-item py-2 rounded-2 text-danger"><i class="bi bi-box-arrow-right me-2"></i>Sign Out</button></li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- Mobile Menu Toggle Button -->
-            <button class="navbar-toggler border-0 p-1 ms-1 d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-              <i class="bi bi-list fs-3 text-primary"></i>
-            </button>
+    <!-- TOP HEADER NAVBAR -->
+    <header class="site-header border-bottom sticky-top bg-white">
+      <div class="container py-2 d-flex align-items-center justify-content-between">
+        <a href="#home" class="d-flex align-items-center gap-2 text-decoration-none">
+          <img src="/assets/aistudio/Ashif_Web_Studio_Frontend_Developer_logo_229c6c9e.png" alt="Logo" width="40" height="40" class="rounded-circle border" />
+          <div>
+            <span class="fw-extrabold text-dark fs-5 d-block line-height-1">Gully Cricket</span>
+            <small class="text-muted fw-semibold">By Ashif Web Studio</small>
           </div>
+        </a>
 
-          <!-- Nav Items -->
-          <div class="collapse navbar-collapse order-lg-2" id="navbarContent">
-            <ul class="navbar-nav ms-auto me-lg-4 mb-2 mb-lg-0 gap-1">
-              <li class="nav-item">
-                <a class="nav-link px-3 fw-semibold active" href="#home"><i class="bi bi-house-door me-1"></i>Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link px-3 fw-semibold" href="#new-match"><i class="bi bi-plus-circle me-1"></i>New Match</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link px-3 fw-semibold position-relative" href="#live" id="nav-live-link">
-                  <i class="bi bi-broadcast me-1 text-danger"></i>Live Scoring
-                  <span id="nav-live-badge" class="badge bg-danger rounded-pill ms-1 d-none">LIVE</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link px-3 fw-semibold" href="#history"><i class="bi bi-journal-text me-1"></i>History</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link px-3 fw-semibold" href="#players"><i class="bi bi-people me-1"></i>Players & Teams</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link px-3 fw-semibold" href="#tournaments"><i class="bi bi-trophy me-1"></i>Series / League</a>
-              </li>
-            </ul>
+        <!-- Header Actions -->
+        <div class="d-flex align-items-center gap-2">
+          <!-- Install Button -->
+          <button id="btn-pwa-install" class="btn btn-sm btn-outline-primary rounded-pill px-3 d-none align-items-center gap-1">
+            <i class="bi bi-download"></i> <span class="d-none d-sm-inline">Install App</span>
+          </button>
+
+          <!-- Auth Status -->
+          <div id="header-auth-section">
+            <button id="btn-header-login" class="btn btn-sm btn-primary rounded-pill px-3 fw-bold d-flex align-items-center gap-2">
+              <i class="bi bi-google"></i> <span>Sign In</span>
+            </button>
+            
+            <div id="header-user-badge" class="dropdown d-none">
+              <button class="btn btn-sm p-1 rounded-circle border dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <img id="header-user-avatar" src="" alt="Avatar" width="32" height="32" class="rounded-circle" />
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 rounded-4 p-2">
+                <li class="px-3 py-2 border-bottom">
+                  <div id="menu-user-name" class="fw-bold text-truncate" style="max-width: 170px;">User</div>
+                  <div id="menu-user-email" class="small text-muted text-truncate" style="max-width: 170px;">email</div>
+                </li>
+                <li><a class="dropdown-item py-2 rounded-2" href="#home"><i class="bi bi-house me-2"></i>Dashboard</a></li>
+                <li><a class="dropdown-item py-2 rounded-2" href="#previous-matches"><i class="bi bi-clock-history me-2"></i>Previous Matches</a></li>
+                <li><a class="dropdown-item py-2 rounded-2" href="#profile"><i class="bi bi-person me-2"></i>My Profile</a></li>
+                <li><a class="dropdown-item py-2 rounded-2" href="#admin-login"><i class="bi bi-shield-lock me-2"></i>Admin Panel</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><button id="btn-header-logout" class="dropdown-item py-2 rounded-2 text-danger"><i class="bi bi-box-arrow-right me-2"></i>Sign Out</button></li>
+              </ul>
+            </div>
           </div>
         </div>
-      </nav>
+      </div>
     </header>
 
-    <!-- MAIN VIEW CONTAINER (Single-Page App Views) -->
-    <main id="main-content" class="content-container py-4">
-      
-      <!-- VIEW: HOME PAGE -->
-      <section id="view-home" class="page-view active">
-        <div class="container">
-          <!-- Hero Section -->
-          <div class="hero-banner rounded-4 p-4 p-md-5 mb-5 shadow-sm position-relative overflow-hidden">
-            <div class="row align-items-center position-relative z-1">
-              <div class="col-lg-7 mb-4 mb-lg-0">
-                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 bg-white rounded-pill shadow-xs mb-3">
-                  <span class="badge bg-primary text-white rounded-pill">V3.0 Pro</span>
-                  <small class="fw-bold text-dark">Mobile-First Cricket Scoring System</small>
-                </div>
-                <h1 class="display-5 fw-extrabold text-white mb-3">
-                  Score Every Ball with <span class="text-accent">Precision</span> & Style.
-                </h1>
-                <p class="lead text-white-90 mb-4">
-                  From 1v1 gully duels to 20-over blockbusters and multi-day Test matches. Instant real-time commentary, run rate graphs, super overs, player stats, and official PDF match certificates.
-                </p>
-                <div class="d-flex flex-wrap gap-3">
-                  <a href="#new-match" class="btn btn-light btn-lg rounded-pill px-4 fw-bold text-primary shadow">
-                    <i class="bi bi-play-circle-fill me-2 fs-5"></i>Start New Match
-                  </a>
-                  <a href="#live" id="btn-hero-resume-live" class="btn btn-outline-light btn-lg rounded-pill px-4 fw-bold d-none">
-                    <i class="bi bi-broadcast me-2"></i>Resume Live Match
-                  </a>
-                  <a href="#tournaments" class="btn btn-outline-light btn-lg rounded-pill px-4 fw-bold">
-                    <i class="bi bi-trophy me-2"></i>Tournament / Series
-                  </a>
-                </div>
-              </div>
-              <div class="col-lg-5 text-center">
-                <div class="hero-cricket-card p-3 p-sm-4 rounded-4 shadow-lg bg-white text-dark text-start">
-                  <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3">
-                    <span class="fw-bold text-muted small"><i class="bi bi-award-fill text-warning me-1"></i>QUICK MATCH ARENA</span>
-                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill">Ready to Play</span>
-                  </div>
-                  <div class="row g-2 mb-3 text-center">
-                    <div class="col-6">
-                      <div class="p-2 rounded-3 bg-light border">
-                        <small class="text-muted d-block">Formats</small>
-                        <strong class="fs-6">1v1 to 11v11</strong>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="p-2 rounded-3 bg-light border">
-                        <small class="text-muted d-block">Overs</small>
-                        <strong class="fs-6">1 - Unlimited / Test</strong>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="d-grid gap-2">
-                    <button class="btn btn-primary rounded-pill fw-bold" onclick="window.quickDemoMatch()">
-                      <i class="bi bi-lightning-charge-fill me-1"></i>1-Click Quick Match Setup
-                    </button>
-                    <a href="#history" class="btn btn-light border rounded-pill text-muted fw-semibold btn-sm">
-                      <i class="bi bi-folder2-open me-1"></i>Explore Match Archives
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Decorative cricket shapes background -->
-            <div class="hero-bg-shapes"></div>
-          </div>
+    <!-- CONTENT VIEWS -->
+    <main class="flex-grow-1 py-4">
 
-          <!-- Quick Stats Bar -->
-          <div class="row g-3 mb-5">
-            <div class="col-6 col-md-3">
-              <div class="card stat-card border-0 rounded-4 shadow-sm p-3 text-center">
-                <i class="bi bi-trophy text-primary fs-3 mb-1"></i>
-                <h3 id="stat-total-matches" class="fw-extrabold mb-0 tabular-nums">0</h3>
-                <small class="text-muted fw-semibold">Matches Scored</small>
-              </div>
+      <!-- ========================================== -->
+      <!-- VIEW 2: LOGIN VIEW (Google Auth) -->
+      <!-- ========================================== -->
+      <section id="view-login" class="spa-view">
+        <div class="container" style="max-width: 440px;">
+          <div class="card border-0 rounded-4 shadow-sm p-4 p-sm-5 text-center my-4">
+            <div class="mb-3">
+              <img src="/assets/aistudio/Ashif_Web_Studio_Frontend_Developer_logo_229c6c9e.png" alt="Ashif Web Studio" width="80" height="80" class="rounded-circle border shadow-xs" />
             </div>
-            <div class="col-6 col-md-3">
-              <div class="card stat-card border-0 rounded-4 shadow-sm p-3 text-center">
-                <i class="bi bi-activity text-success fs-3 mb-1"></i>
-                <h3 id="stat-total-runs" class="fw-extrabold mb-0 tabular-nums">0</h3>
-                <small class="text-muted fw-semibold">Total Runs</small>
-              </div>
-            </div>
-            <div class="col-6 col-md-3">
-              <div class="card stat-card border-0 rounded-4 shadow-sm p-3 text-center">
-                <i class="bi bi-bullseye text-danger fs-3 mb-1"></i>
-                <h3 id="stat-total-wickets" class="fw-extrabold mb-0 tabular-nums">0</h3>
-                <small class="text-muted fw-semibold">Wickets Taken</small>
-              </div>
-            </div>
-            <div class="col-6 col-md-3">
-              <div class="card stat-card border-0 rounded-4 shadow-sm p-3 text-center">
-                <i class="bi bi-people text-info fs-3 mb-1"></i>
-                <h3 id="stat-active-players" class="fw-extrabold mb-0 tabular-nums">0</h3>
-                <small class="text-muted fw-semibold">Players Tracked</small>
-              </div>
-            </div>
-          </div>
+            <h3 class="fw-extrabold mb-1 text-dark">Welcome to Gully Cricket</h3>
+            <p class="text-muted small mb-4">Sign in with your Google account to create matches, track live scores, and generate official PDF scorecards.</p>
 
-          <!-- Live Match Card (If active) -->
-          <div id="home-live-card-container" class="mb-5 d-none">
-            <div class="d-flex align-items-center justify-content-between mb-3">
-              <h4 class="fw-bold mb-0 text-dark d-flex align-items-center gap-2">
-                <span class="live-dot"></span> Active Live Match
-              </h4>
-              <a href="#live" class="btn btn-sm btn-outline-danger rounded-pill fw-bold">Open Console</a>
-            </div>
-            <div id="home-live-card" class="card border-0 rounded-4 shadow-sm p-4 live-banner-card">
-              <!-- Rendered dynamically -->
-            </div>
-          </div>
+            <button id="btn-login-google-main" class="btn btn-primary btn-lg rounded-pill fw-bold w-100 py-3 shadow-sm d-flex align-items-center justify-content-center gap-2 mb-3">
+              <i class="bi bi-google fs-5"></i> Continue with Google
+            </button>
 
-          <!-- Search Matches & Teams & Players -->
-          <div class="card border-0 rounded-4 shadow-sm p-3 p-md-4 mb-5">
-            <h5 class="fw-bold mb-3"><i class="bi bi-search me-2 text-primary"></i>Instant Search</h5>
-            <div class="row g-2">
-              <div class="col-md-4">
-                <div class="input-group">
-                  <span class="input-group-text bg-light border-0"><i class="bi bi-trophy"></i></span>
-                  <input type="text" id="home-search-match" class="form-control bg-light border-0" placeholder="Search match or tournament..." />
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="input-group">
-                  <span class="input-group-text bg-light border-0"><i class="bi bi-shield"></i></span>
-                  <input type="text" id="home-search-team" class="form-control bg-light border-0" placeholder="Search team name..." />
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="input-group">
-                  <span class="input-group-text bg-light border-0"><i class="bi bi-person"></i></span>
-                  <input type="text" id="home-search-player" class="form-control bg-light border-0" placeholder="Search player name..." />
-                </div>
-              </div>
-            </div>
-            <div id="home-search-results" class="mt-3 d-none"></div>
-          </div>
-
-          <!-- Recent Matches Section -->
-          <div class="mb-5">
-            <div class="d-flex align-items-center justify-content-between mb-3">
-              <h4 class="fw-bold mb-0 text-dark"><i class="bi bi-clock-history me-2 text-primary"></i>Recent Matches</h4>
-              <a href="#history" class="btn btn-sm btn-light border rounded-pill fw-semibold">View All</a>
-            </div>
-            <div id="home-recent-matches" class="row g-3">
-              <!-- Matches loaded dynamically or placeholders -->
-            </div>
-          </div>
-
-          <!-- Feature Highlights Grid -->
-          <div class="card border-0 rounded-4 shadow-sm p-4 mb-5 bg-gradient-light">
-            <h4 class="fw-bold mb-4 text-center">Built for Champions, Street to Stadium</h4>
-            <div class="row g-4 text-center">
-              <div class="col-md-4">
-                <div class="feature-icon-circle mx-auto mb-3 bg-primary-subtle text-primary">
-                  <i class="bi bi-speedometer2 fs-3"></i>
-                </div>
-                <h6 class="fw-bold">Ultra Fast 1-Tap Scoring</h6>
-                <p class="text-muted small">Dots, boundaries, extras, and full wicket dismissals with instant undo/redo capabilities.</p>
-              </div>
-              <div class="col-md-4">
-                <div class="feature-icon-circle mx-auto mb-3 bg-danger-subtle text-danger">
-                  <i class="bi bi-repeat fs-3"></i>
-                </div>
-                <h6 class="fw-bold">Super Over & Test Modes</h6>
-                <p class="text-muted small">Automatic super-over prompts on ties, plus full multi-innings Test match declare & follow-on rules.</p>
-              </div>
-              <div class="col-md-4">
-                <div class="feature-icon-circle mx-auto mb-3 bg-success-subtle text-success">
-                  <i class="bi bi-file-earmark-pdf fs-3"></i>
-                </div>
-                <h6 class="fw-bold">PDF Scorecard Certificates</h6>
-                <p class="text-muted small">Export branded match reports with official Ashif Web Studio seals, ball timelines, and team figures.</p>
-              </div>
-            </div>
+            <small class="text-muted d-block">
+              Your match records are securely saved under your private account in Google Cloud Firestore.
+            </small>
           </div>
         </div>
       </section>
 
-      <!-- VIEW: CREATE NEW MATCH (Step-by-Step Wizard) -->
-      <section id="view-new-match" class="page-view">
+      <!-- ========================================== -->
+      <!-- VIEW 4: HOME PAGE / DASHBOARD (EXACT LAYOUT) -->
+      <!-- ========================================== -->
+      <section id="view-home" class="spa-view">
         <div class="container" style="max-width: 900px;">
-          <!-- Wizard Stepper Indicator -->
-          <div class="card border-0 rounded-4 shadow-sm p-3 mb-4">
-            <div class="stepper-wrap d-flex justify-content-between align-items-center">
-              <div class="step-item active" data-step="1">
-                <div class="step-num">1</div>
-                <span class="step-label">Format & Overs</span>
+          
+          <!-- TOP ANALYTICS SECTION (4 Cards: Total Users, Total Matches, Live Match, System Status) -->
+          <div class="row g-3 mb-4" id="analytics-section">
+            <div class="col-6 col-md-3">
+              <div class="card analytics-card border-0 rounded-4 shadow-sm p-3 text-center h-100">
+                <div class="analytics-icon-wrap text-primary mb-2 mx-auto">
+                  <i class="bi bi-people-fill fs-4"></i>
+                </div>
+                <h3 id="stat-total-users" class="fw-extrabold mb-0 tabular-nums">0</h3>
+                <span class="text-muted small fw-semibold">Total Users</span>
               </div>
-              <div class="step-line"></div>
-              <div class="step-item" data-step="2">
-                <div class="step-num">2</div>
-                <span class="step-label">Teams & Squads</span>
+            </div>
+
+            <div class="col-6 col-md-3">
+              <div class="card analytics-card border-0 rounded-4 shadow-sm p-3 text-center h-100">
+                <div class="analytics-icon-wrap text-success mb-2 mx-auto">
+                  <i class="bi bi-trophy-fill fs-4"></i>
+                </div>
+                <h3 id="stat-total-matches" class="fw-extrabold mb-0 tabular-nums">0</h3>
+                <span class="text-muted small fw-semibold">Total Matches</span>
               </div>
-              <div class="step-line"></div>
-              <div class="step-item" data-step="3">
-                <div class="step-num">3</div>
-                <span class="step-label">The Toss</span>
+            </div>
+
+            <div class="col-6 col-md-3">
+              <div class="card analytics-card border-0 rounded-4 shadow-sm p-3 text-center h-100">
+                <div class="analytics-icon-wrap text-danger mb-2 mx-auto">
+                  <i class="bi bi-broadcast fs-4"></i>
+                </div>
+                <h3 id="stat-live-match" class="fw-extrabold mb-0 tabular-nums">0</h3>
+                <span class="text-muted small fw-semibold">Live Match</span>
+              </div>
+            </div>
+
+            <div class="col-6 col-md-3">
+              <div class="card analytics-card border-0 rounded-4 shadow-sm p-3 text-center h-100">
+                <div class="analytics-icon-wrap text-info mb-2 mx-auto">
+                  <i class="bi bi-check-circle-fill fs-4"></i>
+                </div>
+                <h3 class="fw-extrabold mb-0 text-success fs-5 pt-1">Active</h3>
+                <span class="text-muted small fw-semibold">System Status</span>
               </div>
             </div>
           </div>
 
-          <!-- Wizard Step 1: Format & Match Type -->
-          <div id="wizard-step-1" class="wizard-pane active">
-            <div class="card border-0 rounded-4 shadow-sm p-4 mb-4">
-              <h4 class="fw-bold mb-3 text-dark"><i class="bi bi-gear-fill text-primary me-2"></i>Select Match Format</h4>
-              
-              <!-- Match Format Selection -->
-              <div class="mb-4">
-                <label class="form-label fw-bold small text-muted">MATCH FORMAT</label>
-                <div class="row g-2" id="format-selector">
-                  <div class="col-6 col-sm-3">
-                    <input type="radio" class="btn-check" name="matchFormat" id="fmt-limited" value="Limited Overs" checked />
-                    <label class="btn btn-outline-primary w-100 py-3 rounded-3 text-start fw-bold" for="fmt-limited">
-                      <i class="bi bi-clock-history d-block fs-4 mb-1"></i>
-                      Limited Overs
-                      <small class="d-block text-muted fw-normal">Standard Match</small>
-                    </label>
-                  </div>
-                  <div class="col-6 col-sm-3">
-                    <input type="radio" class="btn-check" name="matchFormat" id="fmt-test" value="Test Match" />
-                    <label class="btn btn-outline-primary w-100 py-3 rounded-3 text-start fw-bold" for="fmt-test">
-                      <i class="bi bi-shield-shaded d-block fs-4 mb-1"></i>
-                      Test Match
-                      <small class="d-block text-muted fw-normal">2 Innings / Multi-Day</small>
-                    </label>
-                  </div>
-                  <div class="col-6 col-sm-3">
-                    <input type="radio" class="btn-check" name="matchFormat" id="fmt-super" value="Super Over" />
-                    <label class="btn btn-outline-primary w-100 py-3 rounded-3 text-start fw-bold" for="fmt-super">
-                      <i class="bi bi-lightning-charge d-block fs-4 mb-1"></i>
-                      Super Over
-                      <small class="d-block text-muted fw-normal">1 Over Tie Break</small>
-                    </label>
-                  </div>
-                  <div class="col-6 col-sm-3">
-                    <input type="radio" class="btn-check" name="matchFormat" id="fmt-normal" value="Normal" />
-                    <label class="btn btn-outline-primary w-100 py-3 rounded-3 text-start fw-bold" for="fmt-normal">
-                      <i class="bi bi-play-btn d-block fs-4 mb-1"></i>
-                      Normal
-                      <small class="d-block text-muted fw-normal">Casual Friendly</small>
-                    </label>
-                  </div>
+          <!-- PRIMARY ACTION BUTTONS -->
+          <div class="row g-3 mb-4">
+            <div class="col-md-4">
+              <a href="#create-match" class="btn btn-primary btn-lg rounded-4 w-100 py-3 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2">
+                <i class="bi bi-plus-circle-fill fs-5"></i> Create Match
+              </a>
+            </div>
+            <div class="col-6 col-md-4">
+              <a href="#previous-matches" class="btn btn-outline-secondary btn-lg rounded-4 w-100 py-3 fw-bold bg-white shadow-sm d-flex align-items-center justify-content-center gap-2">
+                <i class="bi bi-clock-history fs-5"></i> Previous Matches
+              </a>
+            </div>
+            <div class="col-6 col-md-4">
+              <a href="#profile" class="btn btn-outline-secondary btn-lg rounded-4 w-100 py-3 fw-bold bg-white shadow-sm d-flex align-items-center justify-content-center gap-2">
+                <i class="bi bi-person-fill fs-5"></i> My Profile
+              </a>
+            </div>
+          </div>
+
+          <!-- 5. LIVE MATCH CARD (Only ONE live match visible on homepage) -->
+          <div id="home-live-match-container" class="card border-0 rounded-4 shadow-sm p-4 mb-4 live-banner-card d-none">
+            <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3">
+              <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-danger rounded-pill px-3 py-1 d-flex align-items-center gap-1">
+                  <span class="live-pulse-dot"></span> LIVE NOW
+                </span>
+                <span id="home-live-venue" class="text-muted small">Gully Arena</span>
+              </div>
+              <a href="#live-score" class="btn btn-sm btn-danger rounded-pill px-3 fw-bold">
+                Resume Scoring <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+
+            <div class="row align-items-center g-3">
+              <div class="col-sm-8">
+                <h4 class="fw-black mb-1 text-dark" id="home-live-teams">Team A vs Team B</h4>
+                <div class="display-6 fw-extrabold text-primary mb-1">
+                  <span id="home-live-score">0/0</span>
+                  <span class="fs-5 text-muted fw-bold">in <span id="home-live-overs">0.0</span> ov</span>
+                </div>
+                <div class="small text-muted">
+                  Current Batter: <strong id="home-live-batter" class="text-dark">Batter 1</strong> · 
+                  Bowler: <strong id="home-live-bowler" class="text-dark">Bowler 1</strong>
                 </div>
               </div>
-
-              <!-- Match Type (Player Count) -->
-              <div class="mb-4">
-                <label class="form-label fw-bold small text-muted">PLAYERS PER SIDE</label>
-                <div class="d-flex flex-wrap gap-2" id="player-count-chips">
-                  <button type="button" class="btn btn-outline-secondary rounded-pill btn-sm count-chip" data-players="1">1 vs 1</button>
-                  <button type="button" class="btn btn-outline-secondary rounded-pill btn-sm count-chip" data-players="2">2 vs 2</button>
-                  <button type="button" class="btn btn-outline-secondary rounded-pill btn-sm count-chip" data-players="3">3 vs 3</button>
-                  <button type="button" class="btn btn-outline-secondary rounded-pill btn-sm count-chip" data-players="4">4 vs 4</button>
-                  <button type="button" class="btn btn-outline-secondary rounded-pill btn-sm count-chip" data-players="5">5 Players</button>
-                  <button type="button" class="btn btn-outline-secondary rounded-pill btn-sm count-chip" data-players="6">6 Players</button>
-                  <button type="button" class="btn btn-outline-secondary rounded-pill btn-sm count-chip" data-players="7">7 Players</button>
-                  <button type="button" class="btn btn-outline-secondary rounded-pill btn-sm count-chip" data-players="8">8 Players</button>
-                  <button type="button" class="btn btn-outline-secondary rounded-pill btn-sm count-chip" data-players="9">9 Players</button>
-                  <button type="button" class="btn btn-outline-secondary rounded-pill btn-sm count-chip" data-players="10">10 Players</button>
-                  <button type="button" class="btn btn-primary rounded-pill btn-sm count-chip active" data-players="11">11 Players</button>
-                  <button type="button" class="btn btn-outline-secondary rounded-pill btn-sm count-chip" data-players="custom">Custom</button>
-                </div>
-                <div id="custom-player-count-wrap" class="mt-2 d-none">
-                  <div class="input-group" style="max-width: 250px;">
-                    <span class="input-group-text bg-light border">Custom Count:</span>
-                    <input type="number" id="input-custom-players" class="form-control" value="8" min="1" max="50" />
-                  </div>
-                </div>
-              </div>
-
-              <!-- Overs Selection -->
-              <div class="mb-4" id="overs-selection-wrap">
-                <label class="form-label fw-bold small text-muted">TOTAL OVERS PER INNINGS</label>
-                <div class="d-flex flex-wrap gap-2" id="overs-chips">
-                  <button type="button" class="btn btn-outline-secondary rounded-pill btn-sm over-chip" data-overs="1">1</button>
-                  <button type="button" class="btn btn-outline-secondary rounded-pill btn-sm over-chip" data-overs="2">2</button>
-                  <button type="button" class="btn btn-outline-secondary rounded-pill btn-sm over-chip" data-overs="3">3</button>
-                  <button type="button" class="btn btn-outline-secondary rounded-pill btn-sm over-chip" data-overs="4">4</button>
-                  <button type="button" class="btn btn-outline-secondary rounded-pill btn-sm over-chip" data-overs="5">5</button>
-                  <button type="button" class="btn btn-outline-secondary rounded-pill btn-sm over-chip" data-overs="6">6</button>
-                  <button type="button" class="btn btn-outline-secondary rounded-pill btn-sm over-chip" data-overs="7">7</button>
-                  <button type="button" class="btn btn-outline-secondary rounded-pill btn-sm over-chip" data-overs="10">10</button>
-                  <button type="button" class="btn btn-outline-secondary rounded-pill btn-sm over-chip" data-overs="15">15</button>
-                  <button type="button" class="btn btn-primary rounded-pill btn-sm over-chip active" data-overs="20">20</button>
-                  <button type="button" class="btn btn-outline-secondary rounded-pill btn-sm over-chip" data-overs="25">25</button>
-                  <button type="button" class="btn btn-outline-secondary rounded-pill btn-sm over-chip" data-overs="test">Test Match</button>
-                  <button type="button" class="btn btn-outline-secondary rounded-pill btn-sm over-chip" data-overs="unlimited">Unlimited</button>
-                </div>
-              </div>
-
-              <!-- Venue and Settings -->
-              <div class="row g-3 mb-3">
-                <div class="col-md-6">
-                  <label class="form-label fw-bold small text-muted">GROUND / VENUE NAME</label>
-                  <div class="input-group">
-                    <span class="input-group-text bg-light"><i class="bi bi-geo-alt"></i></span>
-                    <input type="text" id="input-venue" class="form-control" placeholder="e.g. Shivaji Park, Street Turf #4" value="Gully Arena" />
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label fw-bold small text-muted">BALL TYPE & RULES</label>
-                  <select id="select-ball-type" class="form-select">
-                    <option value="Tennis (Heavy)">Tennis Ball (Heavy)</option>
-                    <option value="Tennis (Light)">Tennis Ball (Light)</option>
-                    <option value="Leather (White)">Leather (White Ball)</option>
-                    <option value="Leather (Red)">Leather (Red Ball)</option>
-                    <option value="Rubber">Rubber / Sponge Ball</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="d-flex justify-content-between align-items-center pt-3 border-top">
-                <button type="button" class="btn btn-outline-primary rounded-pill btn-sm" onclick="window.fillPresetTeamNames()">
-                  <i class="bi bi-magic me-1"></i>Auto Fill Preset Teams
-                </button>
-                <button type="button" id="btn-goto-step-2" class="btn btn-primary rounded-pill px-4 fw-bold">
-                  Next: Setup Teams <i class="bi bi-arrow-right ms-1"></i>
-                </button>
+              <div class="col-sm-4 text-sm-end">
+                <a href="#live-score" class="btn btn-primary rounded-pill px-4 fw-bold shadow-xs">
+                  Open Scoreboard
+                </a>
               </div>
             </div>
           </div>
 
-          <!-- Wizard Step 2: Teams & Players Setup -->
-          <div id="wizard-step-2" class="wizard-pane">
-            <div class="card border-0 rounded-4 shadow-sm p-4 mb-4">
-              <h4 class="fw-bold mb-3 text-dark"><i class="bi bi-people-fill text-primary me-2"></i>Configure Squads</h4>
-
-              <div class="row g-4">
-                <!-- TEAM A -->
-                <div class="col-md-6">
-                  <div class="team-setup-box p-3 rounded-4 border bg-light h-100">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                      <span class="badge bg-primary text-white rounded-pill px-3">TEAM A</span>
-                      <small class="text-muted"><span id="team-a-player-count">11</span> Players</small>
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label small fw-bold text-muted">TEAM A NAME</label>
-                      <input type="text" id="input-team-a-name" class="form-control fw-bold fs-6" value="Thunder Strikers" />
-                    </div>
-
-                    <div class="mb-3">
-                      <div class="d-flex justify-content-between align-items-center mb-1">
-                        <label class="form-label small fw-bold text-muted mb-0">PLAYERS SQUAD</label>
-                        <button type="button" class="btn btn-link btn-sm p-0 text-decoration-none" onclick="window.addPlayerRow('A')">
-                          <i class="bi bi-plus-circle"></i> Add Player
-                        </button>
-                      </div>
-                      <div id="team-a-players-list" class="players-input-list">
-                        <!-- Populated by JS -->
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- TEAM B -->
-                <div class="col-md-6">
-                  <div class="team-setup-box p-3 rounded-4 border bg-light h-100">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                      <span class="badge bg-danger text-white rounded-pill px-3">TEAM B</span>
-                      <small class="text-muted"><span id="team-b-player-count">11</span> Players</small>
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label small fw-bold text-muted">TEAM B NAME</label>
-                      <input type="text" id="input-team-b-name" class="form-control fw-bold fs-6" value="Royal Challengers" />
-                    </div>
-
-                    <div class="mb-3">
-                      <div class="d-flex justify-content-between align-items-center mb-1">
-                        <label class="form-label small fw-bold text-muted mb-0">PLAYERS SQUAD</label>
-                        <button type="button" class="btn btn-link btn-sm p-0 text-decoration-none" onclick="window.addPlayerRow('B')">
-                          <i class="bi bi-plus-circle"></i> Add Player
-                        </button>
-                      </div>
-                      <div id="team-b-players-list" class="players-input-list">
-                        <!-- Populated by JS -->
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="d-flex justify-content-between align-items-center pt-4 border-top mt-4">
-                <button type="button" class="btn btn-outline-secondary rounded-pill px-4 fw-bold" onclick="window.gotoWizardStep(1)">
-                  <i class="bi bi-arrow-left me-1"></i> Back
-                </button>
-                <button type="button" id="btn-goto-step-3" class="btn btn-primary rounded-pill px-4 fw-bold">
-                  Next: The Toss <i class="bi bi-arrow-right ms-1"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Wizard Step 3: The Toss Simulation -->
-          <div id="wizard-step-3" class="wizard-pane">
-            <div class="card border-0 rounded-4 shadow-sm p-4 mb-4 text-center">
-              <h4 class="fw-bold mb-1 text-dark"><i class="bi bi-coin text-warning me-2"></i>The Match Toss</h4>
-              <p class="text-muted small mb-4">Flip the coin to decide who bats or bowls first!</p>
-
-              <!-- Toss Coin Animation Stage -->
-              <div class="toss-arena mb-4">
-                <div id="coin" class="toss-coin mx-auto mb-3">
-                  <div class="coin-side coin-heads">HEADS</div>
-                  <div class="coin-side coin-tails">TAILS</div>
-                </div>
-                <div id="toss-animation-status" class="fw-bold text-muted small">Ready to flip!</div>
-              </div>
-
-              <!-- Toss Setup Options -->
-              <div class="row justify-content-center mb-4">
-                <div class="col-md-8">
-                  <div class="p-3 bg-light rounded-4 border text-start">
-                    <div class="row g-2 mb-3">
-                      <div class="col-6">
-                        <label class="form-label small fw-bold text-muted">CALLING TEAM</label>
-                        <select id="toss-calling-team" class="form-select">
-                          <option value="A" id="opt-toss-team-a">Team A</option>
-                          <option value="B" id="opt-toss-team-b">Team B</option>
-                        </select>
-                      </div>
-                      <div class="col-6">
-                        <label class="form-label small fw-bold text-muted">CALL</label>
-                        <select id="toss-call" class="form-select">
-                          <option value="Heads">Heads</option>
-                          <option value="Tails">Tails</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div class="d-grid mb-3">
-                      <button type="button" id="btn-flip-coin" class="btn btn-warning rounded-pill fw-bold shadow-sm py-2">
-                        <i class="bi bi-play-fill me-1"></i>Flip Coin Now!
-                      </button>
-                    </div>
-
-                    <!-- Toss Winner Decision Box (Visible after flip) -->
-                    <div id="toss-decision-box" class="p-3 rounded-3 bg-white border d-none">
-                      <div class="alert alert-success py-2 px-3 rounded-3 mb-2 small fw-bold" id="toss-result-text">
-                        Team won the toss!
-                      </div>
-                      <label class="form-label small fw-bold text-muted">CHOOSE TO:</label>
-                      <div class="d-flex gap-2">
-                        <input type="radio" class="btn-check" name="tossChoice" id="choice-bat" value="BAT" checked />
-                        <label class="btn btn-outline-success flex-fill fw-bold rounded-pill" for="choice-bat">
-                          <i class="bi bi-trophy me-1"></i>BAT FIRST
-                        </label>
-                        <input type="radio" class="btn-check" name="tossChoice" id="choice-bowl" value="BOWL" />
-                        <label class="btn btn-outline-primary flex-fill fw-bold rounded-pill" for="choice-bowl">
-                          <i class="bi bi-bullseye me-1"></i>BOWL FIRST
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Openers Selector Box -->
-              <div id="openers-selection-box" class="row justify-content-center mb-4 d-none text-start">
-                <div class="col-md-8">
-                  <div class="card border p-3 rounded-4 bg-white">
-                    <h6 class="fw-bold mb-3"><i class="bi bi-person-check-fill text-primary me-2"></i>Select Opening Players</h6>
-                    <div class="row g-2 mb-2">
-                      <div class="col-sm-6">
-                        <label class="form-label small fw-bold text-muted">STRIKE BATTER (Batter 1)</label>
-                        <select id="select-opener-strike" class="form-select"></select>
-                      </div>
-                      <div class="col-sm-6">
-                        <label class="form-label small fw-bold text-muted">NON-STRIKE BATTER (Batter 2)</label>
-                        <select id="select-opener-nonstrike" class="form-select"></select>
-                      </div>
-                    </div>
-                    <div class="mb-2">
-                      <label class="form-label small fw-bold text-muted">OPENING BOWLER</label>
-                      <select id="select-opener-bowler" class="form-select"></select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="d-flex justify-content-between align-items-center pt-3 border-top">
-                <button type="button" class="btn btn-outline-secondary rounded-pill px-4 fw-bold" onclick="window.gotoWizardStep(2)">
-                  <i class="bi bi-arrow-left me-1"></i> Back
-                </button>
-                <button type="button" id="btn-start-match" class="btn btn-success btn-lg rounded-pill px-5 fw-extrabold shadow-sm">
-                  <i class="bi bi-play-circle-fill me-2"></i>START LIVE MATCH!
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
-      <!-- VIEW: LIVE SCORING CONSOLE (The Main Cockpit) -->
-      <section id="view-live" class="page-view">
-        <div class="container" style="max-width: 1100px;">
-          <!-- Empty State (No Live Match) -->
-          <div id="live-empty-state" class="text-center py-5 d-none">
-            <div class="mb-4">
-              <i class="bi bi-broadcast text-muted" style="font-size: 4rem;"></i>
+      <!-- ========================================== -->
+      <!-- VIEW 6: CREATE MATCH (Step 1 -> Step 2 -> Step 3 Toss) -->
+      <!-- ========================================== -->
+      <section id="view-create-match" class="spa-view">
+        <div class="container" style="max-width: 680px;">
+          
+          <!-- STEP 1: Enter First Team Name, Players, Captain -->
+          <div id="step-first-team" class="wizard-step-pane active">
+            <div class="card border-0 rounded-4 shadow-sm p-4 mb-4">
+              <div class="d-flex align-items-center justify-content-between border-bottom pb-2 mb-3">
+                <h4 class="fw-extrabold text-dark mb-0">Step 1: First Team</h4>
+                <span class="badge bg-primary rounded-pill">1 of 3</span>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label small fw-bold text-muted">FIRST TEAM NAME</label>
+                <input type="text" id="input-team-1-name" class="form-control form-control-lg fw-bold" placeholder="e.g. Thunder Strikers" value="Thunder Strikers" />
+              </div>
+
+              <div class="mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <label class="form-label small fw-bold text-muted mb-0">PLAYERS LIST</label>
+                  <button type="button" class="btn btn-link btn-sm text-decoration-none p-0" onclick="window.addPlayerRowToTeam('1')">
+                    <i class="bi bi-plus-circle"></i> Add Player
+                  </button>
+                </div>
+                <div id="team-1-players-container" class="squad-inputs-wrap">
+                  <!-- Squad rows populated by JS -->
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label small fw-bold text-muted">CAPTAIN</label>
+                <select id="select-team-1-captain" class="form-select"></select>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                <a href="#home" class="btn btn-light rounded-pill px-4 fw-semibold">Cancel</a>
+                <button type="button" class="btn btn-primary rounded-pill px-4 fw-bold" onclick="window.gotoCreateStep(2)">
+                  Next <i class="bi bi-arrow-right ms-1"></i>
+                </button>
+              </div>
             </div>
-            <h3 class="fw-bold mb-2">No Active Live Match</h3>
-            <p class="text-muted mb-4">Start a brand new match or pick an existing fixture to score ball-by-ball.</p>
-            <a href="#new-match" class="btn btn-primary btn-lg rounded-pill px-4 fw-bold">
-              <i class="bi bi-plus-circle me-1"></i>Create New Match
+          </div>
+
+          <!-- STEP 2: Enter Second Team, Players, Captain -->
+          <div id="step-second-team" class="wizard-step-pane">
+            <div class="card border-0 rounded-4 shadow-sm p-4 mb-4">
+              <div class="d-flex align-items-center justify-content-between border-bottom pb-2 mb-3">
+                <h4 class="fw-extrabold text-dark mb-0">Step 2: Second Team</h4>
+                <span class="badge bg-primary rounded-pill">2 of 3</span>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label small fw-bold text-muted">SECOND TEAM NAME</label>
+                <input type="text" id="input-team-2-name" class="form-control form-control-lg fw-bold" placeholder="e.g. Royal Challengers" value="Royal Challengers" />
+              </div>
+
+              <div class="mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <label class="form-label small fw-bold text-muted mb-0">PLAYERS LIST</label>
+                  <button type="button" class="btn btn-link btn-sm text-decoration-none p-0" onclick="window.addPlayerRowToTeam('2')">
+                    <i class="bi bi-plus-circle"></i> Add Player
+                  </button>
+                </div>
+                <div id="team-2-players-container" class="squad-inputs-wrap">
+                  <!-- Squad rows populated by JS -->
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label small fw-bold text-muted">CAPTAIN</label>
+                <select id="select-team-2-captain" class="form-select"></select>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label small fw-bold text-muted">MATCH OVERS</label>
+                <select id="select-match-overs" class="form-select">
+                  <option value="5">5 Overs</option>
+                  <option value="10">10 Overs</option>
+                  <option value="15">15 Overs</option>
+                  <option value="20" selected>20 Overs (T20)</option>
+                  <option value="25">25 Overs</option>
+                  <option value="999">Unlimited / Test</option>
+                </select>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                <button type="button" class="btn btn-outline-secondary rounded-pill px-4 fw-semibold" onclick="window.gotoCreateStep(1)">
+                  <i class="bi bi-arrow-left me-1"></i> Back
+                </button>
+                <button type="button" class="btn btn-primary rounded-pill px-4 fw-bold" onclick="window.gotoCreateStep(3)">
+                  Next to Toss <i class="bi bi-arrow-right ms-1"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 3: Toss (Heads / Tails / Winner / Bat or Bowl / Start Match) -->
+          <div id="step-toss" class="wizard-step-pane">
+            <div class="card border-0 rounded-4 shadow-sm p-4 mb-4 text-center">
+              <div class="d-flex align-items-center justify-content-between border-bottom pb-2 mb-3">
+                <h4 class="fw-extrabold text-dark mb-0">Step 3: The Toss</h4>
+                <span class="badge bg-primary rounded-pill">3 of 3</span>
+              </div>
+
+              <!-- 3D Coin Animation Element -->
+              <div class="toss-coin-wrap my-3">
+                <div id="toss-coin" class="toss-coin-box mx-auto">
+                  <div class="coin-face coin-front">HEADS</div>
+                  <div class="coin-face coin-back">TAILS</div>
+                </div>
+                <div id="toss-call-status" class="mt-3 text-muted fw-bold small">Ready to flip coin</div>
+              </div>
+
+              <!-- Toss Calling Options -->
+              <div class="p-3 bg-light rounded-4 border text-start mb-4">
+                <div class="row g-2 mb-3">
+                  <div class="col-6">
+                    <label class="form-label small fw-bold text-muted">CALLING TEAM</label>
+                    <select id="select-toss-caller" class="form-select"></select>
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label small fw-bold text-muted">CALL</label>
+                    <select id="select-toss-call-choice" class="form-select">
+                      <option value="Heads">Heads</option>
+                      <option value="Tails">Tails</option>
+                    </select>
+                  </div>
+                </div>
+
+                <button type="button" id="btn-do-flip" class="btn btn-warning w-100 rounded-pill fw-bold py-2 shadow-xs" onclick="window.executeCoinFlip()">
+                  <i class="bi bi-coin me-1"></i> Flip Coin
+                </button>
+
+                <!-- Toss Result Box (Shows after flip) -->
+                <div id="toss-outcome-box" class="mt-3 pt-3 border-top d-none">
+                  <div class="alert alert-success py-2 px-3 rounded-3 small fw-bold mb-3" id="toss-winner-badge">
+                    Winner won the toss!
+                  </div>
+                  <label class="form-label small fw-bold text-muted">DECISION</label>
+                  <div class="d-flex gap-2">
+                    <input type="radio" class="btn-check" name="tossDecision" id="toss-dec-bat" value="BAT" checked />
+                    <label class="btn btn-outline-success flex-fill fw-bold rounded-pill" for="toss-dec-bat">
+                      <i class="bi bi-trophy me-1"></i> BAT FIRST
+                    </label>
+                    <input type="radio" class="btn-check" name="tossDecision" id="toss-dec-bowl" value="BOWL" />
+                    <label class="btn btn-outline-primary flex-fill fw-bold rounded-pill" for="toss-dec-bowl">
+                      <i class="bi bi-bullseye me-1"></i> BOWL FIRST
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                <button type="button" class="btn btn-outline-secondary rounded-pill px-4 fw-semibold" onclick="window.gotoCreateStep(2)">
+                  <i class="bi bi-arrow-left me-1"></i> Back
+                </button>
+                <button type="button" class="btn btn-success btn-lg rounded-pill px-5 fw-extrabold shadow-sm" onclick="window.launchMatch()">
+                  <i class="bi bi-play-circle-fill me-1"></i> Start Match
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VIEW 7: LIVE SCORING (SIMPLE MINIMAL INTERFACE) -->
+      <!-- ========================================== -->
+      <section id="view-live-score" class="spa-view">
+        <div class="container" style="max-width: 800px;">
+          
+          <!-- Empty State -->
+          <div id="live-no-match" class="card border-0 rounded-4 shadow-sm p-5 text-center my-4 d-none">
+            <i class="bi bi-broadcast text-muted fs-1 mb-2"></i>
+            <h4 class="fw-bold mb-1">No Active Match in Progress</h4>
+            <p class="text-muted small mb-4">Create a new match to begin scoring.</p>
+            <a href="#create-match" class="btn btn-primary rounded-pill px-4 fw-bold mx-auto" style="max-width: 200px;">
+              Create Match
             </a>
           </div>
 
-          <!-- Active Live Scoring Cockpit -->
-          <div id="live-active-container">
-            <!-- Top Match Header Banner -->
-            <div class="card border-0 rounded-4 shadow-sm p-3 p-md-4 mb-3 live-header-card">
-              <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 border-bottom pb-3 mb-3">
-                <div class="d-flex align-items-center gap-2">
-                  <span class="badge bg-danger rounded-pill px-3 py-2 text-uppercase d-inline-flex align-items-center gap-1 shadow-xs">
-                    <span class="live-dot-white"></span> LIVE
-                  </span>
-                  <span id="live-match-format-badge" class="badge bg-light text-dark border rounded-pill">20 Overs</span>
-                  <span id="live-match-venue" class="text-muted small"><i class="bi bi-geo-alt me-1"></i>Gully Arena</span>
-                </div>
-                <div class="d-flex align-items-center gap-2">
-                  <span class="badge bg-light text-muted border rounded-pill" id="live-timer-badge">
-                    <i class="bi bi-stopwatch me-1"></i><span id="live-match-timer">00:00</span>
-                  </span>
-                  <button class="btn btn-sm btn-outline-primary rounded-pill" onclick="window.showScorecardModal()" title="Detailed Scorecard">
-                    <i class="bi bi-table me-1"></i>Full Scorecard
-                  </button>
-                  <button class="btn btn-sm btn-outline-secondary rounded-pill" onclick="window.showGraphsModal()" title="Graphs & Worm">
-                    <i class="bi bi-graph-up me-1"></i>Graphs
-                  </button>
-                </div>
+          <!-- Active Scoring Console -->
+          <div id="live-scoring-console" class="card border-0 rounded-4 shadow-sm p-4 mb-4">
+            
+            <!-- TOP BAR: Match Header -->
+            <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
+              <div>
+                <span class="badge bg-danger rounded-pill px-2 py-1 small me-2"><span class="live-pulse-dot"></span> LIVE</span>
+                <span class="fw-bold text-dark fs-6" id="score-header-teams">Team A vs Team B</span>
               </div>
+              <div class="d-flex gap-2">
+                <button class="btn btn-sm btn-outline-secondary rounded-pill" onclick="window.showScorecardViewModal()">
+                  <i class="bi bi-table me-1"></i> Scorecard
+                </button>
+                <button class="btn btn-sm btn-outline-danger rounded-pill" onclick="window.finishMatchNow()">
+                  End Match
+                </button>
+              </div>
+            </div>
 
-              <!-- Main Big Score Display -->
-              <div class="row align-items-center g-3">
-                <div class="col-md-7">
-                  <div class="d-flex align-items-baseline gap-2 mb-1">
-                    <h2 id="live-batting-team-name" class="fw-extrabold mb-0 text-dark">Team A</h2>
-                    <span class="badge bg-primary-subtle text-primary rounded-pill small">Batting</span>
-                  </div>
-                  <div class="d-flex align-items-baseline gap-3">
-                    <div class="display-3 fw-black tabular-nums text-primary" id="live-score-display">0/0</div>
-                    <div class="fs-4 fw-bold text-muted tabular-nums">
-                      in <span id="live-overs-display" class="text-dark">0.0</span> / <span id="live-max-overs">20</span> ov
-                    </div>
-                  </div>
-                  <!-- Run Rates Bar -->
-                  <div class="d-flex flex-wrap align-items-center gap-3 text-muted small mt-1">
-                    <span>CRR: <strong id="live-crr" class="text-dark">0.00</strong></span>
-                    <span id="live-rrr-wrap" class="d-none">RRR: <strong id="live-rrr" class="text-danger">0.00</strong></span>
-                    <span>Extras: <strong id="live-extras-count" class="text-dark">0</strong></span>
-                  </div>
+            <!-- TOP: Current Score, Overs, Run Rate -->
+            <div class="p-3 bg-light rounded-4 mb-3 border">
+              <div class="row align-items-center text-center text-sm-start">
+                <div class="col-sm-6 mb-2 mb-sm-0">
+                  <small class="text-muted fw-bold d-block">CURRENT SCORE</small>
+                  <div class="display-5 fw-black text-primary tabular-nums" id="score-runs-wickets">0/0</div>
                 </div>
-
-                <!-- 2nd Innings Target & Win Probability Gauge -->
-                <div class="col-md-5">
-                  <div id="live-target-box" class="p-3 rounded-4 bg-light border d-none">
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                      <span class="small fw-bold text-muted">TARGET: <span id="live-target-runs" class="text-primary fs-6">0</span></span>
-                      <span class="small fw-bold text-danger">Need <span id="live-need-runs">0</span> off <span id="live-need-balls">0</span> balls</span>
-                    </div>
-                    <!-- Win Probability Progress Bar -->
-                    <div class="win-prob-wrap mt-2">
-                      <div class="d-flex justify-content-between small fw-bold mb-1">
-                        <span id="prob-team-a-label">Team A: 50%</span>
-                        <span id="prob-team-b-label">Team B: 50%</span>
-                      </div>
-                      <div class="progress" style="height: 8px;">
-                        <div id="prob-bar-a" class="progress-bar bg-primary" role="progressbar" style="width: 50%"></div>
-                        <div id="prob-bar-b" class="progress-bar bg-danger" role="progressbar" style="width: 50%"></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Test Match Follow On / Declare Controls (If Test Match) -->
-                  <div id="live-test-match-controls" class="p-2 rounded-3 bg-light border mt-2 d-none">
-                    <div class="d-flex gap-2">
-                      <button class="btn btn-sm btn-outline-warning rounded-pill flex-fill" onclick="window.declareInnings()">
-                        <i class="bi bi-flag-fill me-1"></i>Declare Innings
-                      </button>
-                      <button class="btn btn-sm btn-outline-info rounded-pill flex-fill" id="btn-follow-on" onclick="window.enforceFollowOn()" disabled>
-                        <i class="bi bi-arrow-repeat me-1"></i>Follow On
-                      </button>
-                    </div>
+                <div class="col-sm-6 text-sm-end">
+                  <div class="d-inline-block text-start">
+                    <div class="mb-1">Overs: <strong id="score-overs-display" class="tabular-nums fs-6">0.0</strong> / <span id="score-max-overs">20</span></div>
+                    <div>Run Rate: <strong id="score-crr-display" class="text-dark tabular-nums">0.00</strong></div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Batters & Bowler Dashboard Row -->
-            <div class="row g-3 mb-3">
-              <!-- Batter 1 & 2 Cards -->
-              <div class="col-md-7">
-                <div class="card border-0 rounded-4 shadow-sm p-3 h-100">
-                  <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-2">
-                    <span class="fw-bold small text-muted"><i class="bi bi-person-fill text-primary me-1"></i>BATTERS AT CREASE</span>
-                    <button class="btn btn-sm btn-light border rounded-pill px-2 py-0 small" onclick="window.switchBatterStrike()" title="Rotate Strike">
-                      <i class="bi bi-arrow-left-right text-primary me-1"></i>Switch Strike
-                    </button>
-                  </div>
-                  
-                  <div class="table-responsive">
-                    <table class="table table-sm align-middle mb-1">
-                      <thead class="text-muted small">
-                        <tr>
-                          <th>Batter</th>
-                          <th class="text-end">R</th>
-                          <th class="text-end">B</th>
-                          <th class="text-end">4s</th>
-                          <th class="text-end">6s</th>
-                          <th class="text-end">SR</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr id="row-strike-batter" class="strike-row">
-                          <td class="fw-bold">
-                            <span class="strike-indicator me-1 text-primary">⚡</span>
-                            <span id="strike-batter-name">Batter 1</span>
-                          </td>
-                          <td class="text-end fw-extrabold fs-6 text-primary tabular-nums" id="strike-batter-runs">0</td>
-                          <td class="text-end tabular-nums text-muted" id="strike-batter-balls">0</td>
-                          <td class="text-end tabular-nums" id="strike-batter-fours">0</td>
-                          <td class="text-end tabular-nums" id="strike-batter-sixes">0</td>
-                          <td class="text-end tabular-nums fw-semibold" id="strike-batter-sr">0.0</td>
-                        </tr>
-                        <tr id="row-nonstrike-batter">
-                          <td class="fw-semibold text-muted">
-                            <span id="nonstrike-batter-name">Batter 2</span>
-                          </td>
-                          <td class="text-end fw-bold tabular-nums" id="nonstrike-batter-runs">0</td>
-                          <td class="text-end tabular-nums text-muted" id="nonstrike-batter-balls">0</td>
-                          <td class="text-end tabular-nums" id="nonstrike-batter-fours">0</td>
-                          <td class="text-end tabular-nums" id="nonstrike-batter-sixes">0</td>
-                          <td class="text-end tabular-nums fw-semibold" id="nonstrike-batter-sr">0.0</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-
-                  <!-- Partnership Indicator -->
-                  <div class="d-flex justify-content-between align-items-center bg-light p-2 rounded-3 small">
-                    <span class="text-muted">Partnership: <strong id="live-partnership-runs" class="text-dark">0</strong> runs (<span id="live-partnership-balls">0</span> balls)</span>
-                    <button class="btn btn-link btn-sm p-0 text-decoration-none text-danger small" onclick="window.retireBatterModal()">Retire Batter</button>
+            <!-- CURRENT BATTER & CURRENT BOWLER STRIP -->
+            <div class="row g-2 mb-3">
+              <div class="col-6">
+                <div class="p-3 border rounded-3 bg-white h-100">
+                  <small class="text-muted fw-bold d-block">CURRENT BATTER (Strike)</small>
+                  <div class="fw-extrabold fs-6 text-dark text-truncate" id="score-current-batter">Batter 1</div>
+                  <div class="small text-muted mt-1 tabular-nums">
+                    <span id="score-batter-runs">0</span> runs (<span id="score-batter-balls">0</span> balls)
                   </div>
                 </div>
               </div>
 
-              <!-- Bowler Figures Card -->
-              <div class="col-md-5">
-                <div class="card border-0 rounded-4 shadow-sm p-3 h-100">
-                  <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-2">
-                    <span class="fw-bold small text-muted"><i class="bi bi-bullseye text-danger me-1"></i>CURRENT BOWLER</span>
-                    <button class="btn btn-sm btn-light border rounded-pill px-2 py-0 small" onclick="window.changeBowlerModal()" title="Change Bowler">
-                      <i class="bi bi-person-gear text-primary me-1"></i>Change Bowler
-                    </button>
-                  </div>
-
-                  <div class="table-responsive mb-2">
-                    <table class="table table-sm align-middle mb-0">
-                      <thead class="text-muted small">
-                        <tr>
-                          <th>Bowler</th>
-                          <th class="text-end">O</th>
-                          <th class="text-end">M</th>
-                          <th class="text-end">R</th>
-                          <th class="text-end">W</th>
-                          <th class="text-end">ECON</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td class="fw-bold" id="current-bowler-name">Bowler</td>
-                          <td class="text-end tabular-nums" id="bowler-overs">0.0</td>
-                          <td class="text-end tabular-nums" id="bowler-maidens">0</td>
-                          <td class="text-end tabular-nums fw-bold" id="bowler-runs">0</td>
-                          <td class="text-end tabular-nums fw-extrabold text-danger fs-6" id="bowler-wickets">0</td>
-                          <td class="text-end tabular-nums fw-semibold" id="bowler-economy">0.0</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-
-                  <!-- Bowling Figures quick tag -->
-                  <div class="p-2 bg-light rounded-3 d-flex justify-content-between align-items-center small text-muted">
-                    <span>Spell: <strong id="bowler-spell-text">0/0 in 0.0</strong></span>
-                    <span id="bowler-max-overs-badge" class="badge bg-secondary-subtle text-secondary rounded-pill">Max 4 ov</span>
+              <div class="col-6">
+                <div class="p-3 border rounded-3 bg-white h-100">
+                  <small class="text-muted fw-bold d-block">CURRENT BOWLER</small>
+                  <div class="fw-extrabold fs-6 text-dark text-truncate" id="score-current-bowler">Bowler 1</div>
+                  <div class="small text-muted mt-1 tabular-nums">
+                    <span id="score-bowler-wickets">0</span>/<span id="score-bowler-runs">0</span> (<span id="score-bowler-overs">0.0</span> ov)
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Current Over Visual Ball Badges & Last Ball Commentary -->
-            <div class="card border-0 rounded-4 shadow-sm p-3 mb-3">
-              <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-2">
-                <span class="fw-bold small text-muted">THIS OVER (<span id="this-over-number">Over 1</span>):</span>
-                <div class="d-flex align-items-center gap-2">
-                  <button class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-0" id="btn-undo-ball" onclick="window.undoLastBall()" title="Undo last ball">
-                    <i class="bi bi-arrow-counterclockwise me-1"></i>Undo
-                  </button>
-                  <button class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-0" id="btn-redo-ball" onclick="window.redoBall()" title="Redo ball" disabled>
-                    <i class="bi bi-arrow-clockwise me-1"></i>Redo
-                  </button>
-                </div>
+            <!-- THIS OVER BALL BADGES -->
+            <div class="p-2 border rounded-3 bg-light mb-4">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <small class="text-muted fw-bold">THIS OVER:</small>
+                <button class="btn btn-link btn-sm p-0 text-decoration-none small" onclick="window.undoDelivery()">
+                  <i class="bi bi-arrow-counterclockwise"></i> Undo
+                </button>
               </div>
-              
-              <!-- Ball Badges Row -->
-              <div id="current-over-balls" class="d-flex flex-wrap align-items-center gap-2 py-1">
-                <!-- Balls rendered as circle pills e.g. [0, 4, 1, W, 6] -->
-                <span class="over-ball-badge empty">·</span>
-                <span class="over-ball-badge empty">·</span>
-                <span class="over-ball-badge empty">·</span>
-                <span class="over-ball-badge empty">·</span>
-                <span class="over-ball-badge empty">·</span>
-                <span class="over-ball-badge empty">·</span>
-              </div>
-
-              <!-- Commentary Line -->
-              <div class="mt-2 pt-2 border-top text-muted small fst-italic" id="live-ball-commentary">
-                <i class="bi bi-chat-left-quote me-1 text-primary"></i>Match underway. Ready for the next delivery!
+              <div id="live-over-balls-list" class="d-flex gap-1 flex-wrap">
+                <!-- Badges rendered by JS -->
               </div>
             </div>
 
-            <!-- SCORING CONTROL KEYPAD (Mobile-First Large Touch Hitboxes) -->
-            <div class="card border-0 rounded-4 shadow-sm p-3 p-md-4 mb-4 scoring-keypad-card">
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <span class="fw-bold small text-muted"><i class="bi bi-calculator-fill text-primary me-1"></i>SCORING CONTROLS</span>
-                <span class="badge bg-light text-muted border rounded-pill">Tap to record ball</span>
-              </div>
-
-              <!-- Row 1: Primary Runs (0, 1, 2, 3, 4, 6) -->
-              <div class="row g-2 mb-2">
-                <div class="col-4 col-sm-2">
-                  <button class="btn btn-score btn-score-dot w-100 py-3 rounded-4 shadow-sm" onclick="window.recordBall(0)">
-                    <span class="score-main">0</span>
-                    <span class="score-sub">Dot</span>
-                  </button>
-                </div>
-                <div class="col-4 col-sm-2">
-                  <button class="btn btn-score btn-score-run w-100 py-3 rounded-4 shadow-sm" onclick="window.recordBall(1)">
-                    <span class="score-main">1</span>
-                    <span class="score-sub">Single</span>
-                  </button>
-                </div>
-                <div class="col-4 col-sm-2">
-                  <button class="btn btn-score btn-score-run w-100 py-3 rounded-4 shadow-sm" onclick="window.recordBall(2)">
-                    <span class="score-main">2</span>
-                    <span class="score-sub">Double</span>
-                  </button>
-                </div>
-                <div class="col-4 col-sm-2">
-                  <button class="btn btn-score btn-score-run w-100 py-3 rounded-4 shadow-sm" onclick="window.recordBall(3)">
-                    <span class="score-main">3</span>
-                    <span class="score-sub">Triple</span>
-                  </button>
-                </div>
-                <div class="col-4 col-sm-2">
-                  <button class="btn btn-score btn-score-four w-100 py-3 rounded-4 shadow-sm" onclick="window.recordBall(4)">
-                    <span class="score-main text-success">4</span>
-                    <span class="score-sub text-success">FOUR</span>
-                  </button>
-                </div>
-                <div class="col-4 col-sm-2">
-                  <button class="btn btn-score btn-score-six w-100 py-3 rounded-4 shadow-sm" onclick="window.recordBall(6)">
-                    <span class="score-main text-primary">6</span>
-                    <span class="score-sub text-primary">SIX</span>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Row 2: Extras & Five Runs -->
+            <!-- BUTTONS: 0, 1, 2, 3, 4, 5, 6, Wide, No Ball, Bye, Leg Bye, Wicket, Undo, Change Batter, Change Bowler, End Over -->
+            <div class="scoring-buttons-grid">
+              <!-- Primary runs -->
               <div class="row g-2 mb-2">
                 <div class="col-3 col-sm-2">
-                  <button class="btn btn-score btn-score-extra w-100 py-2 rounded-3 shadow-sm" onclick="window.openExtraModal('wide')">
-                    <span class="score-extra-title">Wide</span>
-                    <small class="d-block text-muted">Wd</small>
-                  </button>
+                  <button class="btn btn-outline-dark btn-ball-key w-100 py-3 rounded-3 fw-bold" onclick="window.scoreBall(0)">0</button>
                 </div>
                 <div class="col-3 col-sm-2">
-                  <button class="btn btn-score btn-score-extra w-100 py-2 rounded-3 shadow-sm" onclick="window.openExtraModal('noball')">
-                    <span class="score-extra-title">No Ball</span>
-                    <small class="d-block text-muted">Nb</small>
-                  </button>
+                  <button class="btn btn-outline-primary btn-ball-key w-100 py-3 rounded-3 fw-bold" onclick="window.scoreBall(1)">1</button>
                 </div>
                 <div class="col-3 col-sm-2">
-                  <button class="btn btn-score btn-score-extra w-100 py-2 rounded-3 shadow-sm" onclick="window.openExtraModal('bye')">
-                    <span class="score-extra-title">Bye</span>
-                    <small class="d-block text-muted">B</small>
-                  </button>
+                  <button class="btn btn-outline-primary btn-ball-key w-100 py-3 rounded-3 fw-bold" onclick="window.scoreBall(2)">2</button>
                 </div>
                 <div class="col-3 col-sm-2">
-                  <button class="btn btn-score btn-score-extra w-100 py-2 rounded-3 shadow-sm" onclick="window.openExtraModal('legbye')">
-                    <span class="score-extra-title">Leg Bye</span>
-                    <small class="d-block text-muted">Lb</small>
-                  </button>
+                  <button class="btn btn-outline-primary btn-ball-key w-100 py-3 rounded-3 fw-bold" onclick="window.scoreBall(3)">3</button>
                 </div>
                 <div class="col-6 col-sm-2">
-                  <button class="btn btn-score btn-score-run w-100 py-2 rounded-3 shadow-sm" onclick="window.recordBall(5)">
-                    <span class="score-extra-title">5 Runs</span>
-                    <small class="d-block text-muted">Overthrow</small>
-                  </button>
+                  <button class="btn btn-success btn-ball-key w-100 py-3 rounded-3 fw-bold" onclick="window.scoreBall(4)">4 (Four)</button>
                 </div>
                 <div class="col-6 col-sm-2">
-                  <button class="btn btn-score btn-score-extra w-100 py-2 rounded-3 shadow-sm" onclick="window.openPenaltyModal()">
-                    <span class="score-extra-title">Penalty</span>
-                    <small class="d-block text-muted">+5 Runs</small>
-                  </button>
+                  <button class="btn btn-primary btn-ball-key w-100 py-3 rounded-3 fw-bold" onclick="window.scoreBall(6)">6 (Six)</button>
                 </div>
               </div>
 
-              <!-- Row 3: Wicket, Dead Ball, Special Actions -->
+              <!-- Extras and 5 runs -->
+              <div class="row g-2 mb-2">
+                <div class="col-3">
+                  <button class="btn btn-outline-warning w-100 py-2 rounded-3 fw-bold text-dark" onclick="window.scoreExtra('wide')">Wide</button>
+                </div>
+                <div class="col-3">
+                  <button class="btn btn-outline-warning w-100 py-2 rounded-3 fw-bold text-dark" onclick="window.scoreExtra('noball')">No Ball</button>
+                </div>
+                <div class="col-3">
+                  <button class="btn btn-outline-secondary w-100 py-2 rounded-3 fw-bold" onclick="window.scoreExtra('bye')">Bye</button>
+                </div>
+                <div class="col-3">
+                  <button class="btn btn-outline-secondary w-100 py-2 rounded-3 fw-bold" onclick="window.scoreExtra('legbye')">Leg Bye</button>
+                </div>
+              </div>
+
+              <!-- 5 runs, Wicket -->
+              <div class="row g-2 mb-3">
+                <div class="col-6">
+                  <button class="btn btn-outline-dark w-100 py-2 rounded-3 fw-bold" onclick="window.scoreBall(5)">5 Runs</button>
+                </div>
+                <div class="col-6">
+                  <button class="btn btn-danger w-100 py-2 rounded-3 fw-bold fs-6" onclick="window.scoreWicket()">Wicket</button>
+                </div>
+              </div>
+
+              <!-- Control actions: Undo, Change Batter, Change Bowler, End Over -->
               <div class="row g-2">
-                <div class="col-12 col-sm-6">
-                  <button class="btn btn-danger btn-score-wicket w-100 py-3 rounded-4 shadow-sm fw-extrabold fs-5 d-flex align-items-center justify-content-center gap-2" onclick="window.openWicketModal()">
-                    <i class="bi bi-x-octagon-fill fs-4"></i> WICKET / OUT
+                <div class="col-6 col-sm-3">
+                  <button class="btn btn-light border w-100 py-2 rounded-3 small fw-bold" onclick="window.undoDelivery()">
+                    <i class="bi bi-arrow-counterclockwise me-1"></i> Undo
                   </button>
                 </div>
                 <div class="col-6 col-sm-3">
-                  <button class="btn btn-light border w-100 py-3 rounded-4 fw-bold" onclick="window.recordDeadBall()">
-                    <i class="bi bi-slash-circle me-1"></i>Dead Ball
+                  <button class="btn btn-light border w-100 py-2 rounded-3 small fw-bold" onclick="window.changeBatterModal()">
+                    <i class="bi bi-arrow-left-right me-1"></i> Change Batter
                   </button>
                 </div>
                 <div class="col-6 col-sm-3">
-                  <button class="btn btn-outline-danger w-100 py-3 rounded-4 fw-bold" onclick="window.confirmEndInnings()">
-                    <i class="bi bi-stop-circle me-1"></i>End Innings
+                  <button class="btn btn-light border w-100 py-2 rounded-3 small fw-bold" onclick="window.changeBowlerPrompt()">
+                    <i class="bi bi-person-gear me-1"></i> Change Bowler
+                  </button>
+                </div>
+                <div class="col-6 col-sm-3">
+                  <button class="btn btn-light border w-100 py-2 rounded-3 small fw-bold" onclick="window.endOverManual()">
+                    <i class="bi bi-check2-circle me-1"></i> End Over
                   </button>
                 </div>
               </div>
+
             </div>
+
           </div>
+
         </div>
       </section>
 
-      <!-- VIEW: MATCH HISTORY & ARCHIVES -->
-      <section id="view-history" class="page-view">
-        <div class="container">
-          <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
-            <div>
-              <h3 class="fw-bold mb-1 text-dark"><i class="bi bi-journal-text text-primary me-2"></i>Match Archives</h3>
-              <p class="text-muted small mb-0">Browse completed matches, download official PDF scorecards, or share highlights.</p>
-            </div>
-            <div class="d-flex gap-2">
-              <button class="btn btn-sm btn-outline-primary rounded-pill" onclick="window.exportAllMatchesJSON()">
-                <i class="bi bi-download me-1"></i>Export JSON
-              </button>
-              <button class="btn btn-sm btn-outline-secondary rounded-pill" onclick="window.exportAllMatchesCSV()">
-                <i class="bi bi-file-earmark-spreadsheet me-1"></i>Export CSV
-              </button>
-            </div>
-          </div>
-
-          <!-- History Filter Bar -->
-          <div class="card border-0 rounded-4 shadow-sm p-3 mb-4">
-            <div class="row g-2">
-              <div class="col-md-5">
-                <input type="text" id="history-filter-search" class="form-control" placeholder="Search by team, player, or venue..." />
-              </div>
-              <div class="col-md-3">
-                <select id="history-filter-format" class="form-select">
-                  <option value="all">All Formats</option>
-                  <option value="Limited Overs">Limited Overs</option>
-                  <option value="Test Match">Test Match</option>
-                  <option value="Super Over">Super Over</option>
-                </select>
-              </div>
-              <div class="col-md-4">
-                <select id="history-filter-status" class="form-select">
-                  <option value="all">All Statuses</option>
-                  <option value="completed">Completed Only</option>
-                  <option value="live">Live Only</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <!-- Matches Grid -->
-          <div id="history-matches-list" class="row g-3">
-            <!-- Dynamically populated -->
-          </div>
-        </div>
-      </section>
-
-      <!-- VIEW: PLAYERS & TEAMS PROFILE HUB -->
-      <section id="view-players" class="page-view">
-        <div class="container">
+      <!-- ========================================== -->
+      <!-- VIEW 11: PREVIOUS MATCHES (ONLY CURRENT USER'S OWN MATCHES) -->
+      <!-- ========================================== -->
+      <section id="view-previous-matches" class="spa-view">
+        <div class="container" style="max-width: 800px;">
           <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-              <h3 class="fw-bold mb-1 text-dark"><i class="bi bi-people-fill text-primary me-2"></i>Players & Teams Leaderboard</h3>
-              <p class="text-muted small mb-0">Career stats, highest runs, top wicket takers, and head-to-head records.</p>
+              <h3 class="fw-extrabold text-dark mb-0">Previous Matches</h3>
+              <p class="text-muted small mb-0">Your private match records saved in Firebase Firestore.</p>
             </div>
+            <a href="#create-match" class="btn btn-primary rounded-pill btn-sm px-3 fw-bold">
+              <i class="bi bi-plus-circle me-1"></i> New Match
+            </a>
           </div>
 
-          <!-- Tabs: Players vs Teams -->
-          <ul class="nav nav-pills mb-4" id="stats-tab" role="tablist">
-            <li class="nav-item" role="presentation">
-              <button class="nav-link active rounded-pill px-4 fw-bold" id="players-tab" data-bs-toggle="pill" data-bs-target="#tab-players-content" type="button" role="tab">
-                <i class="bi bi-person me-1"></i>Top Players
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link rounded-pill px-4 fw-bold" id="teams-tab" data-bs-toggle="pill" data-bs-target="#tab-teams-content" type="button" role="tab">
-                <i class="bi bi-shield me-1"></i>Teams Record
-              </button>
-            </li>
-          </ul>
+          <div id="user-previous-matches-list" class="row g-3">
+            <!-- Rendered by JS strictly where ownerUID == currentUser.uid -->
+          </div>
+        </div>
+      </section>
 
-          <div class="tab-content" id="stats-tab-content">
-            <!-- Tab 1: Players -->
-            <div class="tab-pane fade show active" id="tab-players-content" role="tabpanel">
-              <div class="card border-0 rounded-4 shadow-sm p-4">
-                <div class="table-responsive">
-                  <table class="table table-hover align-middle mb-0">
-                    <thead class="table-light">
-                      <tr>
-                        <th>Player</th>
-                        <th class="text-center">Matches</th>
-                        <th class="text-center">Runs</th>
-                        <th class="text-center">HS</th>
-                        <th class="text-center">Avg</th>
-                        <th class="text-center">SR</th>
-                        <th class="text-center">4s / 6s</th>
-                        <th class="text-center">Wickets</th>
-                        <th class="text-center">Econ</th>
-                      </tr>
-                    </thead>
-                    <tbody id="players-leaderboard-body">
-                      <!-- Rendered by JS -->
-                    </tbody>
-                  </table>
+      <!-- ========================================== -->
+      <!-- VIEW 12: USER PROFILE -->
+      <!-- ========================================== -->
+      <section id="view-profile" class="spa-view">
+        <div class="container" style="max-width: 500px;">
+          <div class="card border-0 rounded-4 shadow-sm p-4 text-center my-4">
+            <div class="mb-3">
+              <img id="profile-user-photo" src="/assets/aistudio/Ashif_Web_Studio_Frontend_Developer_logo_229c6c9e.png" alt="Profile" width="84" height="84" class="rounded-circle border shadow-xs" />
+            </div>
+            <h4 class="fw-extrabold text-dark mb-1" id="profile-user-name">Player Name</h4>
+            <p class="text-muted small mb-4" id="profile-user-email">player@gmail.com</p>
+
+            <div class="row g-2 mb-4">
+              <div class="col-6">
+                <div class="p-3 bg-light rounded-3 border">
+                  <small class="text-muted d-block">Matches Created</small>
+                  <strong class="fs-4 text-primary tabular-nums" id="profile-matches-created">0</strong>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="p-3 bg-light rounded-3 border">
+                  <small class="text-muted d-block">Matches Played</small>
+                  <strong class="fs-4 text-success tabular-nums" id="profile-matches-played">0</strong>
                 </div>
               </div>
             </div>
 
-            <!-- Tab 2: Teams -->
-            <div class="tab-pane fade" id="tab-teams-content" role="tabpanel">
-              <div class="card border-0 rounded-4 shadow-sm p-4">
-                <div class="table-responsive">
-                  <table class="table table-hover align-middle mb-0">
-                    <thead class="table-light">
-                      <tr>
-                        <th>Team Name</th>
-                        <th class="text-center">Matches</th>
-                        <th class="text-center text-success">Won</th>
-                        <th class="text-center text-danger">Lost</th>
-                        <th class="text-center text-muted">Tied</th>
-                        <th class="text-center">Win %</th>
-                      </tr>
-                    </thead>
-                    <tbody id="teams-leaderboard-body">
-                      <!-- Rendered by JS -->
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+            <div class="d-grid gap-2">
+              <a href="#previous-matches" class="btn btn-outline-secondary rounded-pill fw-bold">
+                View My Matches
+              </a>
+              <button id="btn-profile-logout" class="btn btn-outline-danger rounded-pill fw-bold">
+                <i class="bi bi-box-arrow-right me-1"></i> Sign Out
+              </button>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- VIEW: TOURNAMENTS / SERIES & LEAGUE TABLE -->
-      <section id="view-tournaments" class="page-view">
-        <div class="container">
-          <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-              <h3 class="fw-bold mb-1 text-dark"><i class="bi bi-trophy-fill text-warning me-2"></i>Series & Tournament Manager</h3>
-              <p class="text-muted small mb-0">Organize Best-of-3, Best-of-5, or League tournaments with automated Net Run Rate (NRR) points tables.</p>
+      <!-- ========================================== -->
+      <!-- VIEW 3 & 13: HIDDEN ADMIN PANEL (/admin-login) -->
+      <!-- ========================================== -->
+      <section id="view-admin-login" class="spa-view">
+        <div class="container" style="max-width: 800px;">
+          
+          <!-- Admin Password Gate -->
+          <div id="admin-passcode-gate" class="card border-0 rounded-4 shadow-sm p-4 p-sm-5 text-center my-4 mx-auto" style="max-width: 440px;">
+            <div class="mb-3">
+              <i class="bi bi-shield-lock-fill text-primary" style="font-size: 3rem;"></i>
             </div>
-            <button class="btn btn-primary rounded-pill fw-bold" onclick="window.createSeriesModal()">
-              <i class="bi bi-plus-circle me-1"></i>Create New Series
+            <h4 class="fw-extrabold mb-1">Admin Authentication</h4>
+            <p class="text-muted small mb-4">Protected console for Developer Mohammad Ashif.</p>
+
+            <div class="mb-3">
+              <input type="password" id="input-admin-pass" class="form-control form-control-lg rounded-3" placeholder="Enter Admin Password" />
+            </div>
+
+            <button type="button" class="btn btn-primary btn-lg rounded-pill fw-bold w-100 shadow-sm" onclick="window.submitAdminPasscode()">
+              Unlock Admin Panel
             </button>
           </div>
 
-          <!-- Series Cards Grid -->
-          <div id="series-list-container" class="row g-4 mb-5">
-            <!-- Dynamically populated -->
-          </div>
-
-          <!-- Points Table Demo Card -->
-          <div class="card border-0 rounded-4 shadow-sm p-4">
-            <h5 class="fw-bold mb-3"><i class="bi bi-table text-primary me-2"></i>League Points Table & Net Run Rate (NRR)</h5>
-            <div class="table-responsive">
-              <table class="table table-hover align-middle mb-0 text-center">
-                <thead class="table-light">
-                  <tr>
-                    <th class="text-start">Team</th>
-                    <th>Played</th>
-                    <th class="text-success">Won</th>
-                    <th class="text-danger">Lost</th>
-                    <th>Tie / NR</th>
-                    <th>Points</th>
-                    <th>NRR</th>
-                  </tr>
-                </thead>
-                <tbody id="points-table-body">
-                  <!-- Rendered dynamically -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- VIEW: HIDDEN ADMIN DASHBOARD (/admin-login or #admin-login) -->
-      <section id="view-admin" class="page-view">
-        <div class="container">
-          <!-- Admin Auth Gate (If not verified admin) -->
-          <div id="admin-gate-wrap" class="card border-0 rounded-4 shadow-sm p-4 mx-auto my-5 text-center" style="max-width: 480px;">
-            <div class="mb-3">
-              <i class="bi bi-shield-lock-fill text-primary" style="font-size: 3.5rem;"></i>
-            </div>
-            <h3 class="fw-bold mb-1">Developer & Admin Portal</h3>
-            <p class="text-muted small mb-4">Authorized access for <strong>Mohammad Ashif</strong> (<a href="mailto:mohdashif.dev@gmail.com">mohdashif.dev@gmail.com</a>).</p>
-            
-            <div class="d-grid gap-2 mb-3">
-              <button class="btn btn-primary rounded-pill py-2 fw-bold" onclick="window.adminGoogleLogin()">
-                <i class="bi bi-google me-2"></i>Sign In with Developer Account
-              </button>
-            </div>
-            <div class="divider my-2 text-muted small">OR ENTER ADMIN PASSCODE</div>
-            <div class="input-group mb-3">
-              <input type="password" id="input-admin-passcode" class="form-control" placeholder="Admin Passcode" />
-              <button class="btn btn-outline-secondary" onclick="window.verifyAdminPasscode()">Unlock</button>
-            </div>
-            <small class="text-muted">Master Admin: mohdashif.dev@gmail.com</small>
-          </div>
-
-          <!-- Admin Dashboard (Visible after login) -->
-          <div id="admin-dashboard-wrap" class="d-none">
+          <!-- Admin Dashboard (Shows when verified) -->
+          <div id="admin-dashboard-panel" class="d-none">
             <div class="d-flex justify-content-between align-items-center mb-4">
               <div>
-                <span class="badge bg-danger rounded-pill px-3 py-1 mb-1">SUPER ADMIN</span>
-                <h3 class="fw-bold mb-0 text-dark">Management Console</h3>
-                <small class="text-muted">Logged in as: <strong id="admin-user-email">mohdashif.dev@gmail.com</strong></small>
+                <span class="badge bg-danger rounded-pill px-3 py-1 mb-1">ADMINISTRATOR</span>
+                <h3 class="fw-extrabold text-dark mb-0">System Analytics &amp; Control</h3>
               </div>
-              <button class="btn btn-outline-danger btn-sm rounded-pill" onclick="window.exitAdmin()">
-                <i class="bi bi-box-arrow-right me-1"></i>Exit Admin
+              <button class="btn btn-outline-danger btn-sm rounded-pill" onclick="window.exitAdminPanel()">
+                Exit Admin
               </button>
             </div>
 
-            <!-- Stats Grid -->
+            <!-- Realtime Firebase Stats Grid -->
             <div class="row g-3 mb-4">
-              <div class="col-6 col-lg-3">
-                <div class="card border-0 rounded-4 shadow-sm p-3 bg-primary text-white">
-                  <small class="text-white-50">Total Registered Users</small>
-                  <h2 class="fw-black mb-0" id="admin-stat-users">0</h2>
+              <div class="col-6 col-md-3">
+                <div class="card border-0 rounded-4 shadow-sm p-3 bg-light">
+                  <small class="text-muted fw-bold">TOTAL USERS</small>
+                  <h3 class="fw-black mb-0 text-dark tabular-nums" id="admin-stat-total-users">0</h3>
                 </div>
               </div>
-              <div class="col-6 col-lg-3">
-                <div class="card border-0 rounded-4 shadow-sm p-3 bg-success text-white">
-                  <small class="text-white-50">Today's Logins</small>
-                  <h2 class="fw-black mb-0" id="admin-stat-logins">0</h2>
+              <div class="col-6 col-md-3">
+                <div class="card border-0 rounded-4 shadow-sm p-3 bg-light">
+                  <small class="text-muted fw-bold">TODAY'S USERS</small>
+                  <h3 class="fw-black mb-0 text-success tabular-nums" id="admin-stat-today-users">0</h3>
                 </div>
               </div>
-              <div class="col-6 col-lg-3">
-                <div class="card border-0 rounded-4 shadow-sm p-3 bg-info text-white">
-                  <small class="text-white-50">Matches Created</small>
-                  <h2 class="fw-black mb-0" id="admin-stat-matches">0</h2>
+              <div class="col-6 col-md-3">
+                <div class="card border-0 rounded-4 shadow-sm p-3 bg-light">
+                  <small class="text-muted fw-bold">TOTAL MATCHES</small>
+                  <h3 class="fw-black mb-0 text-primary tabular-nums" id="admin-stat-total-matches">0</h3>
                 </div>
               </div>
-              <div class="col-6 col-lg-3">
-                <div class="card border-0 rounded-4 shadow-sm p-3 bg-dark text-white">
-                  <small class="text-white-50">Live Matches Now</small>
-                  <h2 class="fw-black mb-0" id="admin-stat-live">0</h2>
+              <div class="col-6 col-md-3">
+                <div class="card border-0 rounded-4 shadow-sm p-3 bg-light">
+                  <small class="text-muted fw-bold">LIVE MATCHES</small>
+                  <h3 class="fw-black mb-0 text-danger tabular-nums" id="admin-stat-live-matches">0</h3>
                 </div>
               </div>
             </div>
 
-            <!-- User Management & Search -->
+            <!-- Recent Matches & Delete Match -->
             <div class="card border-0 rounded-4 shadow-sm p-4 mb-4">
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="fw-bold mb-0"><i class="bi bi-people me-2 text-primary"></i>User Accounts</h5>
-                <input type="text" id="admin-search-users" class="form-control form-control-sm" style="max-width: 250px;" placeholder="Search user by name or email..." />
-              </div>
+              <h5 class="fw-extrabold mb-3">All Matches in Database</h5>
               <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
+                <table class="table table-hover align-middle mb-0 small">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Teams</th>
+                      <th>Score</th>
+                      <th>Status</th>
+                      <th>Date</th>
+                      <th class="text-end">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-matches-tbody">
+                    <!-- Populated dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Recent Logins & Users List -->
+            <div class="card border-0 rounded-4 shadow-sm p-4 mb-4">
+              <h5 class="fw-extrabold mb-3">Users &amp; Recent Logins</h5>
+              <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0 small">
                   <thead class="table-light">
                     <tr>
                       <th>User</th>
                       <th>Email</th>
                       <th>UID</th>
-                      <th>Last Login</th>
+                      <th>Login Time</th>
                       <th class="text-end">Action</th>
                     </tr>
                   </thead>
-                  <tbody id="admin-users-table-body">
+                  <tbody id="admin-users-tbody">
                     <!-- Populated dynamically -->
                   </tbody>
                 </table>
               </div>
             </div>
 
-            <!-- Match Management -->
-            <div class="card border-0 rounded-4 shadow-sm p-4 mb-4">
-              <h5 class="fw-bold mb-3"><i class="bi bi-trophy me-2 text-primary"></i>Match Records Management</h5>
-              <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                  <thead class="table-light">
-                    <tr>
-                      <th>Match ID</th>
-                      <th>Teams</th>
-                      <th>Status</th>
-                      <th>Date</th>
-                      <th class="text-end">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody id="admin-matches-table-body">
-                    <!-- Populated dynamically -->
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <!-- Audit Activity Logs -->
-            <div class="card border-0 rounded-4 shadow-sm p-4">
-              <h5 class="fw-bold mb-3"><i class="bi bi-clock-history me-2 text-primary"></i>Recent System Activity</h5>
-              <div class="table-responsive">
-                <table class="table table-sm table-striped align-middle mb-0">
-                  <thead>
-                    <tr>
-                      <th>Timestamp</th>
-                      <th>Actor</th>
-                      <th>Event</th>
-                      <th>Details</th>
-                    </tr>
-                  </thead>
-                  <tbody id="admin-logs-table-body">
-                    <!-- Logs -->
-                  </tbody>
-                </table>
-              </div>
-            </div>
           </div>
+
         </div>
       </section>
 
     </main>
 
-    <!-- FOOTER (Standard branding specified by User) -->
-    <footer class="app-footer bg-white border-top py-4 mt-auto">
-      <div class="container">
-        <div class="row align-items-center g-3">
-          <div class="col-md-6 text-center text-md-start">
-            <div class="d-flex align-items-center justify-content-center justify-content-md-start gap-2 mb-2">
-              <img src="/assets/aistudio/Ashif_Web_Studio_Frontend_Developer_logo_229c6c9e.png" alt="Ashif Web Studio Logo" height="28" class="rounded-circle" />
-              <strong class="text-dark fs-6">Gully Cricket Scorer</strong>
-            </div>
-            <p class="text-muted small mb-0">
-              Designed & Developed by <strong class="text-primary">Ashif Web Studio</strong>
-            </p>
-            <p class="text-muted small mb-0">
-              Developer: <strong>Mohammad Ashif</strong> · 
-              <a href="https://ashif-web-studio.vercel.app" target="_blank" rel="noopener noreferrer" class="text-decoration-none">Website</a> · 
-              <a href="mailto:mohdashif.dev@gmail.com" class="text-decoration-none">mohdashif.dev@gmail.com</a>
-            </p>
-          </div>
-          <div class="col-md-6 text-center text-md-end">
-            <div class="d-flex align-items-center justify-content-center justify-content-md-end gap-3 small text-muted">
-              <a href="#home" class="text-muted text-decoration-none">Home</a>
-              <span>·</span>
-              <a href="#history" class="text-muted text-decoration-none">Match Archive</a>
-              <span>·</span>
-              <a href="#tournaments" class="text-muted text-decoration-none">Tournaments</a>
-              <span>·</span>
-              <!-- Hidden Admin Link -->
-              <a href="#admin-login" class="text-muted text-decoration-none opacity-50" title="Developer Login">Admin Portal</a>
-            </div>
-            <small class="text-muted opacity-75 mt-1 d-block">© 2026 Ashif Web Studio. All rights reserved.</small>
-          </div>
-        </div>
+    <!-- 17. FOOTER (EXACT SPECIFICATION) -->
+    <footer class="site-footer border-top bg-white py-4 mt-auto">
+      <div class="container text-center">
+        <h6 class="fw-extrabold text-dark mb-1">Ashif Web Studio</h6>
+        <p class="text-muted small mb-1">
+          Designed &amp; Developed by <strong>Ashif Web Studio</strong>
+        </p>
+        <p class="small mb-1">
+          <a href="https://ashif-web-studio.vercel.app" target="_blank" rel="noopener noreferrer" class="text-primary text-decoration-none fw-semibold">
+            https://ashif-web-studio.vercel.app
+          </a>
+        </p>
+        <p class="small text-muted mb-0">
+          <a href="mailto:mohdashif.dev@gmail.com" class="text-muted text-decoration-none">
+            mohdashif.dev@gmail.com
+          </a>
+        </p>
       </div>
     </footer>
+
   </div>
 
-  <!-- MODALS CONTAINER -->
+  <!-- MODALS -->
 
-  <!-- MODAL: WICKET DISMISSAL -->
-  <div class="modal fade" id="modal-wicket" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content rounded-4 border-0 shadow-lg">
-        <div class="modal-header bg-danger text-white rounded-top-4 border-0">
-          <h5 class="modal-title fw-bold"><i class="bi bi-x-octagon me-2"></i>Wicket / Dismissal Details</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body p-4">
-          <div class="mb-3">
-            <label class="form-label small fw-bold text-muted">WHO IS OUT?</label>
-            <div class="d-flex gap-2">
-              <input type="radio" class="btn-check" name="wicketBatter" id="wb-strike" value="strike" checked />
-              <label class="btn btn-outline-danger flex-fill fw-bold rounded-3" for="wb-strike">
-                Strike: <span id="wb-strike-name">Batter 1</span>
-              </label>
-              <input type="radio" class="btn-check" name="wicketBatter" id="wb-nonstrike" value="nonstrike" />
-              <label class="btn btn-outline-danger flex-fill fw-bold rounded-3" for="wb-nonstrike">
-                Non-Strike: <span id="wb-nonstrike-name">Batter 2</span>
-              </label>
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label small fw-bold text-muted">DISMISSAL METHOD</label>
-            <select id="select-wicket-type" class="form-select" onchange="window.onWicketTypeChange()">
-              <option value="Bowled">Bowled</option>
-              <option value="Caught">Caught</option>
-              <option value="Run Out">Run Out</option>
-              <option value="LBW">LBW</option>
-              <option value="Stumped">Stumped</option>
-              <option value="Hit Wicket">Hit Wicket</option>
-              <option value="Retired Hurt">Retired Hurt</option>
-              <option value="Handled Ball">Handled Ball / Obstructing</option>
-            </select>
-          </div>
-
-          <div id="fielder-select-wrap" class="mb-3 d-none">
-            <label class="form-label small fw-bold text-muted">FIELDER / CATCHER</label>
-            <select id="select-fielder" class="form-select"></select>
-          </div>
-
-          <div id="runout-runs-wrap" class="mb-3 d-none">
-            <label class="form-label small fw-bold text-muted">RUNS COMPLETED BEFORE RUN OUT</label>
-            <input type="number" id="input-runout-runs" class="form-control" value="0" min="0" max="4" />
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label small fw-bold text-muted">SELECT NEXT BATTER</label>
-            <select id="select-next-batter" class="form-select"></select>
-          </div>
-        </div>
-        <div class="modal-footer border-0 pt-0">
-          <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-danger rounded-pill px-4 fw-bold" onclick="window.confirmWicket()">Confirm Wicket</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL: CHANGE BOWLER -->
-  <div class="modal fade" id="modal-change-bowler" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content rounded-4 border-0 shadow-lg">
-        <div class="modal-header border-0 pb-0">
-          <h5 class="modal-title fw-bold"><i class="bi bi-person-gear text-primary me-2"></i>Select Next Bowler</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body p-4">
-          <p class="text-muted small mb-3">Choose the bowler for the next delivery. (A bowler cannot bowl consecutive overs unless playing 1v1).</p>
-          <div class="mb-3">
-            <label class="form-label small fw-bold text-muted">AVAILABLE BOWLERS</label>
-            <select id="select-new-bowler" class="form-select form-select-lg"></select>
-          </div>
-        </div>
-        <div class="modal-footer border-0 pt-0">
-          <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary rounded-pill px-4 fw-bold" onclick="window.confirmBowlerChange()">Set Bowler</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL: EXTRAS (Wide / No Ball / Bye / Leg Bye) -->
-  <div class="modal fade" id="modal-extras" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content rounded-4 border-0 shadow-lg">
-        <div class="modal-header border-0 pb-0">
-          <h5 class="modal-title fw-bold" id="extra-modal-title">Record Extra</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body p-4">
-          <div class="mb-3">
-            <label class="form-label small fw-bold text-muted">ADDITIONAL RUNS SCORED (Byes / Bat runs)</label>
-            <div class="d-flex gap-2">
-              <button class="btn btn-outline-primary flex-fill py-2 fw-bold" onclick="window.confirmExtra(0)">+0</button>
-              <button class="btn btn-outline-primary flex-fill py-2 fw-bold" onclick="window.confirmExtra(1)">+1</button>
-              <button class="btn btn-outline-primary flex-fill py-2 fw-bold" onclick="window.confirmExtra(2)">+2</button>
-              <button class="btn btn-outline-primary flex-fill py-2 fw-bold" onclick="window.confirmExtra(3)">+3</button>
-              <button class="btn btn-outline-primary flex-fill py-2 fw-bold" onclick="window.confirmExtra(4)">+4</button>
-            </div>
-          </div>
-          <div class="small text-muted" id="extra-modal-explanation">
-            Wide gives 1 penalty run to the batting team + extra ball.
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL: MATCH RESULT & SUPER OVER TRIGGER -->
+  <!-- MODAL: MATCH RESULT & GENERATE PDF (Step 9 & 10) -->
   <div class="modal fade" id="modal-match-result" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content rounded-4 border-0 shadow-xl text-center overflow-hidden">
-        <div class="result-hero-bg p-4 p-md-5 text-white position-relative">
-          <div class="result-badge mb-2">MATCH FINISHED</div>
-          <h1 class="display-6 fw-black mb-2" id="result-winner-title">Team A Won!</h1>
-          <p class="lead mb-3" id="result-margin-text">Won by 24 Runs</p>
-          <div class="d-inline-flex align-items-center gap-2 bg-white text-dark px-3 py-1 rounded-pill small fw-bold shadow-xs">
-            <i class="bi bi-star-fill text-warning"></i>
-            <span>Player of the Match: <strong id="result-potm-name">Mohammad</strong></span>
-          </div>
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4 border-0 shadow-lg text-center p-4">
+        <div class="mb-2">
+          <span class="badge bg-primary rounded-pill px-3 py-1">MATCH COMPLETED</span>
+        </div>
+        <h2 class="display-6 fw-black text-dark mb-1" id="res-winner-title">Team Won!</h2>
+        <p class="text-muted mb-3" id="res-margin-text">Won by 14 runs</p>
+
+        <div class="p-3 bg-light rounded-4 mb-4 border">
+          <div class="fw-bold text-dark mb-1" id="res-summary-text">Match Summary</div>
+          <div class="small text-muted" id="res-scores-breakdown">Team A: 120/4 (10.0 ov) vs Team B: 106/8 (10.0 ov)</div>
         </div>
 
-        <div class="modal-body p-4">
-          <!-- Scores Summary Strip -->
-          <div class="row g-3 mb-4 text-center">
-            <div class="col-6">
-              <div class="p-3 rounded-4 bg-light border">
-                <h6 class="fw-bold text-muted mb-1" id="result-team-a-name">Team A</h6>
-                <h3 class="fw-black mb-0 text-primary" id="result-team-a-score">145/6</h3>
-                <small class="text-muted" id="result-team-a-overs">(20.0 ov)</small>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="p-3 rounded-4 bg-light border">
-                <h6 class="fw-bold text-muted mb-1" id="result-team-b-name">Team B</h6>
-                <h3 class="fw-black mb-0 text-danger" id="result-team-b-score">121/10</h3>
-                <small class="text-muted" id="result-team-b-overs">(18.4 ov)</small>
-              </div>
-            </div>
-          </div>
-
-          <!-- Tie Super Over Prompt (If Tied) -->
-          <div id="super-over-prompt-box" class="alert alert-warning p-3 rounded-4 mb-4 d-none text-start">
-            <div class="d-flex align-items-center justify-content-between">
-              <div>
-                <h6 class="fw-bold mb-1 text-dark"><i class="bi bi-lightning-charge-fill text-warning me-1"></i>SCORES ARE TIED!</h6>
-                <small class="text-muted">Would you like to play an exhilarating 1-over Super Over to decide the champion?</small>
-              </div>
-              <button class="btn btn-warning rounded-pill fw-bold" onclick="window.startSuperOver()">
-                Play Super Over!
-              </button>
-            </div>
-          </div>
-
-          <!-- Action Buttons -->
-          <div class="d-flex flex-wrap justify-content-center gap-2">
-            <button class="btn btn-primary rounded-pill px-4 fw-bold" onclick="window.downloadMatchPDF()">
-              <i class="bi bi-file-earmark-pdf-fill me-1"></i>Download PDF Scorecard
-            </button>
-            <button class="btn btn-success rounded-pill px-4 fw-bold" onclick="window.shareWhatsApp()">
-              <i class="bi bi-whatsapp me-1"></i>WhatsApp Share
-            </button>
-            <button class="btn btn-outline-secondary rounded-pill px-3" onclick="window.copyShareLink()">
-              <i class="bi bi-share me-1"></i>Copy Link
-            </button>
-            <button class="btn btn-light border rounded-pill px-3" data-bs-dismiss="modal">
-              Close
-            </button>
-          </div>
-        </div>
-        
-        <div class="modal-footer bg-light border-0 justify-content-center py-2">
-          <small class="text-muted">Designed & Developed by Ashif Web Studio · <a href="https://ashif-web-studio.vercel.app" target="_blank" rel="noopener noreferrer">ashif-web-studio.vercel.app</a></small>
+        <div class="d-grid gap-2 mb-2">
+          <button class="btn btn-primary btn-lg rounded-pill fw-bold shadow-sm" onclick="window.downloadOfficialPDF()">
+            <i class="bi bi-file-earmark-pdf-fill me-1"></i> Generate Professional PDF
+          </button>
+          <a href="#previous-matches" class="btn btn-outline-secondary rounded-pill fw-bold" data-bs-dismiss="modal">
+            View in Previous Matches
+          </a>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- MODAL: FULL SCORECARD VIEWER -->
-  <div class="modal fade" id="modal-scorecard" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl">
-      <div class="modal-content rounded-4 border-0 shadow-xl">
+  <!-- MODAL: DETAILED SCORECARD (Step 8) -->
+  <div class="modal fade" id="modal-detailed-scorecard" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content rounded-4 border-0 shadow-lg">
         <div class="modal-header border-0 pb-0">
-          <div>
-            <h5 class="modal-title fw-bold"><i class="bi bi-journal-check text-primary me-2"></i>Official Match Scorecard</h5>
-            <small class="text-muted" id="scorecard-modal-sub">Gully Cricket Arena</small>
-          </div>
+          <h5 class="modal-title fw-bold">Official Match Scorecard</h5>
           <div class="d-flex gap-2">
-            <button class="btn btn-sm btn-outline-primary rounded-pill" onclick="window.downloadMatchPDF()">
-              <i class="bi bi-download me-1"></i>PDF
-            </button>
-            <button class="btn btn-sm btn-outline-secondary rounded-pill" onclick="window.printScorecard()">
-              <i class="bi bi-printer me-1"></i>Print
+            <button class="btn btn-sm btn-outline-primary rounded-pill" onclick="window.downloadOfficialPDF()">
+              <i class="bi bi-file-earmark-pdf me-1"></i> PDF
             </button>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
         </div>
-        <div class="modal-body p-4" id="scorecard-printable-area">
-          <div id="full-scorecard-render">
-            <!-- Dynamic scorecard tables rendered here -->
-          </div>
+        <div class="modal-body p-4" id="printable-scorecard-content">
+          <!-- Rendered dynamically -->
         </div>
       </div>
     </div>
   </div>
 
-  <!-- MODAL: GRAPHS & ANALYTICS (Manhattan, Worm, Run Rate) -->
-  <div class="modal fade" id="modal-graphs" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content rounded-4 border-0 shadow-lg">
-        <div class="modal-header border-0 pb-0">
-          <h5 class="modal-title fw-bold"><i class="bi bi-graph-up-arrow text-primary me-2"></i>Match Visual Analytics</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body p-4">
-          <!-- Graph Tabs -->
-          <ul class="nav nav-pills mb-3" id="graph-tabs" role="tablist">
-            <li class="nav-item">
-              <button class="nav-link active rounded-pill px-3 py-1 btn-sm fw-bold" id="tab-manhattan-btn" data-bs-toggle="pill" data-bs-target="#tab-manhattan">Manhattan Chart</button>
-            </li>
-            <li class="nav-item">
-              <button class="nav-link rounded-pill px-3 py-1 btn-sm fw-bold" id="tab-worm-btn" data-bs-toggle="pill" data-bs-target="#tab-worm">Worm Comparison</button>
-            </li>
-            <li class="nav-item">
-              <button class="nav-link rounded-pill px-3 py-1 btn-sm fw-bold" id="tab-rr-btn" data-bs-toggle="pill" data-bs-target="#tab-rr">Run Rate Curve</button>
-            </li>
-          </ul>
-
-          <div class="tab-content">
-            <div class="tab-pane fade show active" id="tab-manhattan">
-              <div class="p-3 bg-light rounded-4 border">
-                <h6 class="fw-bold text-muted small mb-2">RUNS PER OVER (Manhattan Bars + Wickets)</h6>
-                <canvas id="canvas-manhattan" width="700" height="320" class="w-100" style="max-height: 320px;"></canvas>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="tab-worm">
-              <div class="p-3 bg-light rounded-4 border">
-                <h6 class="fw-bold text-muted small mb-2">CUMULATIVE SCORE PROGRESSION (Worm Graph)</h6>
-                <canvas id="canvas-worm" width="700" height="320" class="w-100" style="max-height: 320px;"></canvas>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="tab-rr">
-              <div class="p-3 bg-light rounded-4 border">
-                <h6 class="fw-bold text-muted small mb-2">CURRENT VS REQUIRED RUN RATE</h6>
-                <canvas id="canvas-runrate" width="700" height="320" class="w-100" style="max-height: 320px;"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- TOAST NOTIFICATION CONTAINER -->
-  <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 2000;">
-    <div id="app-toast" class="toast align-items-center text-bg-dark border-0 rounded-4 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+  <!-- Toast Notification -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 3000;">
+    <div id="main-toast" class="toast align-items-center text-bg-dark border-0 rounded-4 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="d-flex">
-        <div class="toast-body d-flex align-items-center gap-2" id="toast-message">
-          <i class="bi bi-info-circle-fill text-primary"></i> Notification
+        <div class="toast-body small fw-semibold" id="main-toast-text">
+          Notification
         </div>
         <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
     </div>
   </div>
 
-  <!-- Bootstrap 5 JS Bundle -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <!-- Bootstrap 5 Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Canvas Confetti -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
-
-  <!-- Application Main JavaScript Module -->
+  <!-- Application Modules -->
   <script type="module" src="/src/app.js"></script>
 </body>
 </html>

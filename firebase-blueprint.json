@@ -22,6 +22,7 @@
       "properties": {
         "id": { "type": "string", "maxLength": 128 },
         "userId": { "type": "string", "maxLength": 128 },
+        "ownerUID": { "type": "string", "maxLength": 128 },
         "creatorEmail": { "type": "string", "maxLength": 150 },
         "matchType": { "type": "string", "maxLength": 50 },
         "format": { "type": "string", "maxLength": 50 },

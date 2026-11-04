@@ -41,16 +41,25 @@ service cloud.firestore {
       allow delete: if isAdmin();
     }
 
-    // Matches Collection - Publicly readable so shared match links and live scores can be viewed!
+    // Matches Collection - User isolated: Users only list their own matches (where ownerUID == auth.uid)
     match /matches/{matchId} {
-      allow get, list: if true;
+      allow get: if true;
+      allow list: if isSignedIn() && (
+        resource.data.ownerUID == request.auth.uid ||
+        resource.data.userId == request.auth.uid ||
+        isAdmin()
+      );
       allow create: if isSignedIn() && isValidId(matchId) &&
-        request.resource.data.userId == request.auth.uid;
+        (request.resource.data.ownerUID == request.auth.uid || request.resource.data.userId == request.auth.uid);
       allow update: if isSignedIn() && isValidId(matchId) && (
-        resource.data.userId == request.auth.uid || isAdmin()
+        resource.data.ownerUID == request.auth.uid ||
+        resource.data.userId == request.auth.uid ||
+        isAdmin()
       );
       allow delete: if isSignedIn() && isValidId(matchId) && (
-        resource.data.userId == request.auth.uid || isAdmin()
+        resource.data.ownerUID == request.auth.uid ||
+        resource.data.userId == request.auth.uid ||
+        isAdmin()
       );
     }
 
