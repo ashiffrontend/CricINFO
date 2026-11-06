@@ -224,14 +224,32 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .splash-brand-title {
   transform: rotateY(180deg);
 }
 
-.toss-coin-box.animating {
-  animation: spinCoin3D 1.6s ease-in-out forwards;
+.toss-coin-box.animating-heads {
+  animation: spinCoinHeads 1.6s ease-in-out forwards;
 }
 
-@keyframes spinCoin3D {
+.toss-coin-box.animating-tails {
+  animation: spinCoinTails 1.6s ease-in-out forwards;
+}
+
+.toss-coin-box.landed-heads {
+  transform: rotateY(0deg);
+}
+
+.toss-coin-box.landed-tails {
+  transform: rotateY(180deg);
+}
+
+@keyframes spinCoinHeads {
   0% { transform: rotateY(0deg) translateY(0); }
   50% { transform: rotateY(1440deg) translateY(-60px); }
   100% { transform: rotateY(2880deg) translateY(0); }
+}
+
+@keyframes spinCoinTails {
+  0% { transform: rotateY(0deg) translateY(0); }
+  50% { transform: rotateY(1440deg) translateY(-60px); }
+  100% { transform: rotateY(3060deg) translateY(0); }
 }
 
 /* Live Scoring Keypad Buttons */

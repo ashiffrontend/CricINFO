@@ -139,6 +139,57 @@
               <i class="bi bi-google fs-5"></i> Continue with Google
             </button>
 
+            <!-- Popup blocked alert & fallback action -->
+            <div id="login-popup-blocked-alert" class="alert alert-warning border-0 rounded-4 text-start p-3 mb-3 d-none shadow-xs">
+              <div class="d-flex align-items-start gap-2">
+                <i class="bi bi-shield-exclamation text-warning fs-4 flex-shrink-0"></i>
+                <div class="w-100">
+                  <strong class="d-block text-dark small fw-bold">Sign-In Pop-up Blocked</strong>
+                  <p class="text-muted mb-2" style="font-size: 0.8rem;">Your browser or preview container blocked the Google Sign-In popup window.</p>
+                  <div class="d-flex flex-wrap gap-2">
+                    <a id="btn-open-new-tab-login" href="#" target="_blank" class="btn btn-sm btn-dark rounded-pill fw-bold px-3">
+                      <i class="bi bi-box-arrow-up-right me-1"></i> Open in New Tab
+                    </a>
+                    <button type="button" class="btn btn-sm btn-outline-primary rounded-pill fw-bold px-3" onclick="window.retryGoogleLogin()">
+                      <i class="bi bi-arrow-repeat me-1"></i> Retry
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Unauthorized domain alert -->
+            <div id="login-unauthorized-domain-alert" class="alert alert-danger border-0 rounded-4 text-start p-3 mb-3 d-none shadow-xs">
+              <div class="d-flex align-items-start gap-2">
+                <i class="bi bi-globe-americas text-danger fs-4 flex-shrink-0"></i>
+                <div class="w-100">
+                  <strong class="d-block text-dark small fw-bold">Domain Authorization Required</strong>
+                  <p class="text-muted mb-2" style="font-size: 0.8rem;">
+                    This development domain is not yet in your Firebase Authorized Domains list. Add it in Firebase Console to use Google Sign-In here:
+                  </p>
+                  <div class="input-group input-group-sm mb-2">
+                    <input type="text" id="unauthorized-domain-display" class="form-control font-monospace bg-white" readonly />
+                    <button class="btn btn-outline-dark" type="button" onclick="window.copyCurrentDomain()">
+                      <i class="bi bi-clipboard me-1"></i> Copy
+                    </button>
+                  </div>
+                  <div class="d-flex flex-wrap gap-2 mb-2">
+                    <a href="https://console.firebase.google.com/project/ashif-web-studio/authentication/settings" target="_blank" class="btn btn-sm btn-danger rounded-pill fw-bold px-3">
+                      <i class="bi bi-gear-fill me-1"></i> Add in Firebase Console
+                    </a>
+                    <a href="https://cric-info-eta.vercel.app" target="_blank" class="btn btn-sm btn-dark rounded-pill fw-bold px-3">
+                      <i class="bi bi-box-arrow-up-right me-1"></i> Open on Vercel
+                    </a>
+                  </div>
+                  <div class="pt-2 border-top">
+                    <button type="button" class="btn btn-sm btn-outline-primary rounded-pill fw-bold w-100" onclick="window.loginAsDevPreview()">
+                      <i class="bi bi-person-check-fill me-1"></i> Continue in Preview Mode (Mohammad Ashif)
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <small class="text-muted d-block">
               Your match records are securely saved under your private account in Google Cloud Firestore.
             </small>
@@ -282,9 +333,19 @@
                 </div>
               </div>
 
-              <div class="mb-4">
-                <label class="form-label small fw-bold text-muted">CAPTAIN</label>
-                <select id="select-team-1-captain" class="form-select"></select>
+              <div class="row g-2 mb-4">
+                <div class="col-4">
+                  <label class="form-label small fw-bold text-muted">CAPTAIN</label>
+                  <select id="select-team-1-captain" class="form-select form-select-sm"></select>
+                </div>
+                <div class="col-4">
+                  <label class="form-label small fw-bold text-muted">VICE CAPTAIN</label>
+                  <select id="select-team-1-vc" class="form-select form-select-sm"></select>
+                </div>
+                <div class="col-4">
+                  <label class="form-label small fw-bold text-muted">WICKET KEEPER</label>
+                  <select id="select-team-1-keeper" class="form-select form-select-sm"></select>
+                </div>
               </div>
 
               <div class="d-flex justify-content-between align-items-center pt-3 border-top">
@@ -296,7 +357,7 @@
             </div>
           </div>
 
-          <!-- STEP 2: Enter Second Team, Players, Captain -->
+          <!-- STEP 2: Enter Second Team, Players, Captain, VC, Keeper -->
           <div id="step-second-team" class="wizard-step-pane">
             <div class="card border-0 rounded-4 shadow-sm p-4 mb-4">
               <div class="d-flex align-items-center justify-content-between border-bottom pb-2 mb-3">
@@ -321,9 +382,19 @@
                 </div>
               </div>
 
-              <div class="mb-4">
-                <label class="form-label small fw-bold text-muted">CAPTAIN</label>
-                <select id="select-team-2-captain" class="form-select"></select>
+              <div class="row g-2 mb-4">
+                <div class="col-4">
+                  <label class="form-label small fw-bold text-muted">CAPTAIN</label>
+                  <select id="select-team-2-captain" class="form-select form-select-sm"></select>
+                </div>
+                <div class="col-4">
+                  <label class="form-label small fw-bold text-muted">VICE CAPTAIN</label>
+                  <select id="select-team-2-vc" class="form-select form-select-sm"></select>
+                </div>
+                <div class="col-4">
+                  <label class="form-label small fw-bold text-muted">WICKET KEEPER</label>
+                  <select id="select-team-2-keeper" class="form-select form-select-sm"></select>
+                </div>
               </div>
 
               <div class="mb-3">
@@ -444,9 +515,15 @@
                 <span class="badge bg-danger rounded-pill px-2 py-1 small me-2"><span class="live-pulse-dot"></span> LIVE</span>
                 <span class="fw-bold text-dark fs-6" id="score-header-teams">Team A vs Team B</span>
               </div>
-              <div class="d-flex gap-2">
+              <div class="d-flex flex-wrap gap-2">
+                <button class="btn btn-sm btn-outline-info rounded-pill" onclick="window.openOverHistoryModal()">
+                  <i class="bi bi-clock-history me-1"></i> Overs
+                </button>
                 <button class="btn btn-sm btn-outline-secondary rounded-pill" onclick="window.showScorecardViewModal()">
                   <i class="bi bi-table me-1"></i> Scorecard
+                </button>
+                <button class="btn btn-sm btn-outline-warning rounded-pill" onclick="window.openMatchControlsModal()">
+                  <i class="bi bi-arrow-clockwise me-1"></i> Controls
                 </button>
                 <button class="btn btn-sm btn-outline-danger rounded-pill" onclick="window.finishMatchNow()">
                   End Match
@@ -662,7 +739,7 @@
             <p class="text-muted small mb-4">Protected console for Developer Mohammad Ashif.</p>
 
             <div class="mb-3">
-              <input type="password" id="input-admin-pass" class="form-control form-control-lg rounded-3" placeholder="Enter Admin Password" />
+              <input type="password" id="input-admin-pass" class="form-control form-control-lg rounded-3" placeholder="Enter Admin Password" onkeydown="if(event.key==='Enter') window.submitAdminPasscode()" />
             </div>
 
             <button type="button" class="btn btn-primary btn-lg rounded-pill fw-bold w-100 shadow-sm" onclick="window.submitAdminPasscode()">
@@ -825,6 +902,190 @@
         </div>
         <div class="modal-body p-4" id="printable-scorecard-content">
           <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: MATCH CONTROLS & RESTARTS (Point 15 in Prompt) -->
+  <div class="modal fade" id="modal-match-controls" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+        <div class="modal-header border-0 pb-2">
+          <h5 class="modal-title fw-bold text-dark"><i class="bi bi-sliders text-warning me-2"></i>Match Controls &amp; Restarts</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body pt-0">
+          <p class="text-muted small mb-3">Revert deliveries, reset over, or restart match state. Each action is safeguarded with confirmation.</p>
+
+          <div class="list-group list-group-flush border rounded-3 mb-3">
+            <button type="button" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3" onclick="window.confirmRestartBall()">
+              <div>
+                <strong class="d-block text-dark">Restart Ball (Undo 1 Ball)</strong>
+                <small class="text-muted">Revert the very last scored ball without losing prior deliveries.</small>
+              </div>
+              <span class="badge bg-light text-dark border">Undo</span>
+            </button>
+
+            <button type="button" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3" onclick="window.confirmRestartOver()">
+              <div>
+                <strong class="d-block text-dark">Restart Current Over</strong>
+                <small class="text-muted">Reset all balls bowled in the active over back to ball 0.</small>
+              </div>
+              <span class="badge bg-warning-subtle text-warning-emphasis border">Reset Over</span>
+            </button>
+
+            <button type="button" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3" onclick="window.confirmRestartInnings()">
+              <div>
+                <strong class="d-block text-danger">Restart Current Innings</strong>
+                <small class="text-muted">Completely reset the current innings score back to 0 runs, 0 wickets.</small>
+              </div>
+              <span class="badge bg-danger-subtle text-danger border">Reset Innings</span>
+            </button>
+
+            <button type="button" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3" onclick="window.confirmRestartEntireMatch()">
+              <div>
+                <strong class="d-block text-danger">Restart Entire Match</strong>
+                <small class="text-muted">Reset both innings back to ball one (preserves toss result).</small>
+              </div>
+              <span class="badge bg-danger text-white">Full Reset</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: TIE MATCH & SUPER OVER (Points 11, 12 & 13) -->
+  <div class="modal fade" id="modal-tie-match" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4 border-0 shadow-lg text-center p-4">
+        <div class="mb-2">
+          <span class="badge bg-warning text-dark rounded-pill px-3 py-1 fw-bold fs-6">MATCH TIED</span>
+        </div>
+        <h2 class="display-6 fw-black text-dark mb-1">Scores Are Level!</h2>
+        <p class="text-muted mb-4" id="tie-match-summary-text">Both teams finished with equal scores.</p>
+
+        <div class="d-grid gap-2 mb-2">
+          <button class="btn btn-primary btn-lg rounded-pill fw-bold shadow-sm" onclick="window.launchSuperOverFromModal()">
+            <i class="bi bi-lightning-charge-fill me-1"></i> Start Super Over
+          </button>
+          <button class="btn btn-outline-secondary rounded-pill fw-bold py-2" onclick="window.concludeTieMatchFromModal()">
+            End Match as Tie
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: OVER HISTORY BROWSER (Point 9) -->
+  <div class="modal fade" id="modal-over-history" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content rounded-4 border-0 shadow-lg">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title fw-bold"><i class="bi bi-clock-history text-info me-2"></i>Over-by-Over History</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4" id="over-history-modal-body">
+          <!-- Populated dynamically by UIController -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: BOWLER SELECT (Point 4) -->
+  <div class="modal fade" id="modal-bowler-select" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+        <div class="modal-header border-0 pb-2">
+          <h5 class="modal-title fw-bold text-dark"><i class="bi bi-person-gear text-primary me-2"></i>Select Next Bowler</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body pt-0">
+          <p class="text-muted small mb-3">Choose a bowler from Playing XI. Official rules prohibit consecutive overs by the same bowler.</p>
+          <div id="bowler-select-list" class="list-group mb-3">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: WICKET DISMISSAL DETAILS (Points 2, 3 & 16) -->
+  <div class="modal fade" id="modal-wicket-details" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+        <div class="modal-header border-0 pb-2">
+          <h5 class="modal-title fw-bold text-danger"><i class="bi bi-exclamation-octagon-fill me-2"></i>Wicket Fall Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body pt-0">
+          <div class="mb-3">
+            <label class="form-label small fw-bold text-muted">OUT BATSMAN</label>
+            <div class="d-flex gap-2">
+              <input type="radio" class="btn-check" name="wicketOutBatter" id="out-batter-striker" value="strike" checked />
+              <label class="btn btn-outline-danger flex-fill fw-bold rounded-pill text-truncate" for="out-batter-striker" id="label-out-striker">
+                Striker
+              </label>
+              <input type="radio" class="btn-check" name="wicketOutBatter" id="out-batter-nonstriker" value="nonstrike" />
+              <label class="btn btn-outline-danger flex-fill fw-bold rounded-pill text-truncate" for="out-batter-nonstriker" id="label-out-nonstriker">
+                Non-Striker
+              </label>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small fw-bold text-muted">DISMISSAL TYPE</label>
+            <select id="wicket-dismissal-type" class="form-select">
+              <option value="Bowled">Bowled</option>
+              <option value="Caught">Caught</option>
+              <option value="LBW">LBW</option>
+              <option value="Run Out">Run Out</option>
+              <option value="Stumped">Stumped</option>
+              <option value="Hit Wicket">Hit Wicket</option>
+              <option value="Retired Out">Retired Out</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small fw-bold text-muted">NEXT BATSMAN (Playing XI)</label>
+            <select id="wicket-next-batter-select" class="form-select"></select>
+          </div>
+
+          <div class="d-grid pt-2">
+            <button type="button" class="btn btn-danger btn-lg rounded-pill fw-bold" onclick="window.submitWicketFromModal()">
+              Confirm Dismissal
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: CHANGE BATTER -->
+  <div class="modal fade" id="modal-change-batter" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+        <div class="modal-header border-0 pb-2">
+          <h5 class="modal-title fw-bold text-dark"><i class="bi bi-arrow-left-right text-primary me-2"></i>Change Batsmen Ends</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center pt-0">
+          <p class="text-muted small mb-4">Swap strike manually between the two currently active batsmen.</p>
+          <div class="d-flex align-items-center justify-content-center gap-3 p-3 bg-light rounded-4 mb-3 border">
+            <div>
+              <small class="text-muted d-block">STRIKER</small>
+              <strong id="modal-swap-striker-name" class="fs-6 text-primary">Batter 1</strong>
+            </div>
+            <i class="bi bi-arrow-left-right fs-4 text-muted"></i>
+            <div>
+              <small class="text-muted d-block">NON-STRIKER</small>
+              <strong id="modal-swap-nonstriker-name" class="fs-6 text-dark">Batter 2</strong>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary rounded-pill fw-bold px-4" onclick="window.confirmSwapStrike()">
+            Swap Strike
+          </button>
         </div>
       </div>
     </div>
